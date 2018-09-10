@@ -2,8 +2,7 @@
 DAY_DATE = 'date'   #required; indicates the date of travel
 DAY_NEW_LEG = 'new_leg' #optional; when set to true, indicates that a new leg of the trip began, and the day should not be considered as connected to the previous day. Special case to handle flights and the West Coast leg.
 DAY_WAYPOINTS = 'waypoints' #optional; list of coords that should be used as waypoints before DAY_COORD (if present)
-DAY_COORD = 'coord' #optional; indicates where we slept at the end of DAY_DATE. If we slept in the same spot as the previous day, can specify as DAY_SLEEP_USE_PREV_COORD.
-DAY_SLEEP_USE_PREV_COORD = "DAY_COORD should be the same as the previous day's"
+DAY_COORD = 'coord' #required; indicates where we slept at the end of DAY_DATE.
 DAY_COORD_LABEL = 'coord_label'
 DAY_COORD_TYPE = 'coord_type' #   indicates whether we were camping or in a city
 DAY_COORD_CAMPING = 'camping'
@@ -26,20 +25,20 @@ trip_entry_template = '''
     {
         DAY_DATE: date(2018,7,),
         DAY_NEW_LEG: True,
-        DAY_WAYPOINTS: [[0,0]],
-        DAY_COORD: [0, 0] | DAY_SLEEP_USE_PREV_COORD,
+        DAY_WAYPOINTS: [(0,0)],
+        DAY_COORD: (0,0),
         DAY_COORD_LABEL: 'Tucson',
         DAY_COORD_TYPE: DAY_COORD_CITY | DAY_COORD_CAMPING,
         DAY_MILES: 0,
         DAY_HOURS: 0,
-        DAY_FRIENDS: {'Fred': [0,0] | DAY_FRIEND_USE_SLEEP_COORD | DAY_FRIEND_USE_PREV_COORD},
+        DAY_FRIENDS: {'Fred': (0,0) | DAY_FRIEND_USE_SLEEP_COORD | DAY_FRIEND_USE_PREV_COORD},
         DAY_PARKS: ['Saguaro NP'], # don't forget to add to parks dict
         DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
-        DAY_GOT_HIGH: [('Empire State Building', 1000, [0,0])],
-        DAY_SWIM: ('Huron River', [0,0]),
-        DAY_MEALS: [('Tucson', 'ribs', [0,0])],
+        DAY_GOT_HIGH: [('Empire State Building', 1000, (0,0))],
+        DAY_SWIM: ('Huron River', (0,0)),
+        DAY_MEALS: [('Tucson', 'ribs', (0,0))],
         DAY_PIE: ('Apple', 'Fred'),
-        DAY_TIKI: ('Smugglers Cove', [0,0]),
+        DAY_TIKI: ('Smugglers Cove', (0,0)),
         DAY_CAVES: ['Lava Beds NM'],
     },
 '''

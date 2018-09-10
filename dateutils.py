@@ -7,20 +7,9 @@ def format_date_range(first, last):
     else:
         return '{} to {}'.format(first, last)
 
-def format_date_ranges(ranges, sep=', '):    
-    formatted_elems = [format_date_range(first,last) for (first, last) in ranges]
-    return sep.join(formatted_elems)
-
-def collapse_date_ranges(dates, sep=', '):
-    '''Given a list of datetime.dates, returns a string with consecutive dates collapsed into ranges (first - last).
-    If there are multiple ranges, they will be separated by ', '. 
+def break_into_ranges(dates):
+    '''Given a list of datetime.dates, returns a list of lists of consecutive dates.
     '''
-    # early return
-    if not dates:
-        return ''
-    if len(dates) == 1:
-        return str(dates[0])
-    
     # break into non-consecutive ranges
     ranges = []
     # pick your start
@@ -37,5 +26,21 @@ def collapse_date_ranges(dates, sep=', '):
         first = d
         last = d
     ranges.append((first, last))
-    
+    return ranges
+
+def format_date_ranges(ranges, sep=', '):
+    formatted_elems = [format_date_range(first,last) for (first, last) in ranges]
+    return sep.join(formatted_elems)
+
+def collapse_date_ranges(dates, sep=', '):
+    '''Given a list of datetime.dates, returns a string with consecutive dates collapsed into ranges (first - last).
+    If there are multiple ranges, they will be separated by sep.
+    '''
+    # early return
+    if not dates:
+        return ''
+    if len(dates) == 1:
+        return str(dates[0])
+
+    ranges = break_into_ranges(dates)
     return format_date_ranges(ranges, sep=sep)
