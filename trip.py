@@ -87,7 +87,7 @@ trip = [
         DAY_DATE: date(2018,5,10),
         DAY_COORD: coords.farmersville,
         DAY_FRIENDS: {'Jessica, Tommy, Conner, and Brady': DAY_FRIEND_USE_PREV_COORD,
-                      'Tom, Lynda, Jennifer, and Andrew': [33.198427, -96.639490]},
+                      'Tom, Lynda, Jennifer, and Andrew': (33.198427, -96.639490)},
         DAY_PIE: ('Strawberry basil', 'Jessica, Tommy, Conner, and Brady'),
     },
     {
@@ -439,7 +439,7 @@ trip = [
         DAY_DATE: date(2018,6,22),
         DAY_COORD: coords.nyc,
         DAY_FRIENDS: {'Richard and Janice': DAY_FRIEND_USE_PREV_COORD,
-                      'Hanya and family': [40.779125, -73.962623]},
+                      'Hanya and family': (40.779125, -73.962623)},
         DAY_MEALS: [('Cafe du Soleil', 'French food', (40.800096, -73.968394))],
     },
     {
@@ -574,7 +574,7 @@ trip = [
         DAY_MILES: 544,
         DAY_HOURS: 9,
         DAY_FRIENDS: {'Collin': DAY_FRIEND_USE_PREV_COORD,
-                      'Lee': [41.509373, -81.662294],
+                      'Lee': (41.509373, -81.662294),
                       'Jeremy and Christine': DAY_FRIEND_USE_SLEEP_COORD},
         DAY_PARKS: ['Niagara Falls SP'],
     },
@@ -646,14 +646,14 @@ trip = [
         DAY_MILES: 425,
         DAY_HOURS: 6.5,
         DAY_FRIENDS: {'Brenda': DAY_FRIEND_USE_PREV_COORD,
-                      'Laurie': [43.095183, -89.510684],
+                      'Laurie': (43.095183, -89.510684),
                       'Vic and Ari': DAY_FRIEND_USE_SLEEP_COORD},
     },
     {
         DAY_DATE: date(2018,7,16),
         DAY_COORD: coords.minneapolis,
         DAY_FRIENDS: {'Vic and Ari': DAY_FRIEND_USE_PREV_COORD,
-                      'Caleb and Amber': [44.985084, -93.383359]},
+                      'Caleb and Amber': (44.985084, -93.383359)},
         DAY_TIKI: ("Psycho Suzi's Motor Lounge", [45.007461, -93.272400]),
     },
     {
@@ -698,8 +698,8 @@ trip = [
         DAY_MILES: 47,
         DAY_HOURS: 1,
         DAY_FRIENDS: {'Nina and Alex': DAY_FRIEND_USE_PREV_COORD,
-                       'Julie and Patsy': [38.248830, -122.039802],
-                       'Murray': DAY_FRIEND_USE_SLEEP_COORD},
+                      'Julie and Patsy': (38.248830, -122.039802),
+                      'Murray': DAY_FRIEND_USE_SLEEP_COORD},
     },
     {
         DAY_DATE: date(2018,7,23),
@@ -866,7 +866,7 @@ trip = [
         DAY_COORD_TYPE: DAY_COORD_CITY,
         DAY_MILES: 149,
         DAY_HOURS: 2.5,
-        DAY_FRIENDS: {'Derek and Marisa': DAY_FRIEND_USE_SLEEP_COORD},
+        DAY_FRIENDS: {'Derek and Marisa': DAY_FRIEND_USE_SLEEP_COORD}, # TODO handle multiple visits to the same friends in the same spot
         DAY_PARKS: ['Mount Rainier NP'],
         DAY_MEALS: [('Salt and Straw', 'Ice cream', (45.504927, -122.630573))],
     },
@@ -882,7 +882,7 @@ trip = [
         DAY_COORD_TYPE: DAY_COORD_CITY | DAY_COORD_CAMPING,
         DAY_MILES: 0,
         DAY_HOURS: 0,
-        DAY_FRIENDS: {'Lisa and Bill': [0,0] | DAY_FRIEND_USE_SLEEP_COORD | DAY_FRIEND_USE_PREV_COORD},
+        DAY_FRIENDS: {'Lisa and Bill': (0,0) | DAY_FRIEND_USE_SLEEP_COORD | DAY_FRIEND_USE_PREV_COORD},
         DAY_PARKS: ['Saguaro NP'], # don't forget to add to parks dict
         DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
         DAY_GOT_HIGH: [('Empire State Building', 1000, [0,0])],
