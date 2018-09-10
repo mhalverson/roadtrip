@@ -1,7 +1,7 @@
 from datetime import timedelta
 
-def format_date_range(first, last):
-    # collapse the range, joining with '-'
+def format_date_range(first, last, sep=' to '):
+    # collapse the range, joining with sep
     if first == last:
         return '{}'.format(first)
     else:

@@ -196,7 +196,7 @@ trip = [
         DAY_WAYPOINTS: [(25.463643, -80.334882)],
         DAY_COORD: coords.florida_city,
         DAY_PARKS: ['Biscayne NP'],
-        DAY_SWIM: ('Biscayne NP', [25.388416, -80.218740]),
+        DAY_SWIM: ('Biscayne NP', (25.388416, -80.218740)),
         DAY_MEALS: [('Robert is Here Fruit Stand', 'Milkshakes', [25.447392, -80.501892])],
     },
     {
@@ -260,7 +260,7 @@ trip = [
         DAY_HOURS: 2.5,
         DAY_FRIENDS: {'Laurel and Andy': DAY_FRIEND_USE_PREV_COORD,
                       'Piper and Anwar': DAY_FRIEND_USE_SLEEP_COORD},
-        DAY_SWIM: ('Lake Hartwell', [34.681392, -82.860668]),
+        DAY_SWIM: ('Lake Hartwell', (34.681392, -82.860668)),
         DAY_MEALS: [("Piper's", 'Thai soup', coords.clemson)],
         DAY_PIE: ('Strawberry basil', 'Piper and Anwar'),
     },
@@ -635,7 +635,7 @@ trip = [
         DAY_COORD: coords.chicago,
         DAY_FRIENDS: {'Brenda': DAY_FRIEND_USE_PREV_COORD},
         DAY_GOT_HIGH: [('Hancock Tower 96th Floor Signature Lounge', 1128, [41.898719, -87.622903])],
-        DAY_SWIM: ('Lake Michigan', [41.978315, -87.648103]),
+        DAY_SWIM: ('Lake Michigan', (41.978315, -87.648103)),
     },
     {
         DAY_DATE: date(2018,7,15),
@@ -726,7 +726,7 @@ trip = [
         DAY_COORD: coords.lassen,
         DAY_PARKS: ['Lassen Volcanic NP'],
         DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
-        DAY_SWIM: ('Ridge Lakes', [40.456450, -121.549242]),
+        DAY_SWIM: ('Ridge Lakes', (40.456450, -121.549242)),
     },
     {
         DAY_DATE: date(2018,7,26),
@@ -798,7 +798,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,8,2),
-        DAY_WAYPOINTS: [(47.515110, -124.336348), (47.710838, -124.414812), (47.797220, -124.239542), (47.941896, -124.411954), (48.057364, -124.376610), (48.043201, -123.828420), (48.105127, -123.412771), (48.006840, -123.360408), coords.hurricane_ridge, (48.006840, -123.360408), (48.105127, -123.412771), (47.986439, -122.848921), coords.port_townsend, (47.986439, -122.848921), (47.850701, -122.606458), (47.595711, -122.725563), (47.237523, -122.538190), (47.278138, -122.285465), (47.798126, -122.341378), (48.018115, -122.147663), (48.187589, -122.201805), (48.281306, -121.998726), (48.255384, -121.601282), (48.494241, -121.598667)],
+        DAY_WAYPOINTS: [(47.515110, -124.336348), (47.710838, -124.414812), (47.797220, -124.239542), (47.941896, -124.411954), (48.057364, -124.376610), (48.043201, -123.828420), (48.105127, -123.412771), (48.006840, -123.360408), coords.hurricane_ridge, (48.006840, -123.360408), (48.105127, -123.412771), (47.986439, -122.848921), coords.port_townsend, (47.986439, -122.848921), (47.850701, -122.606458), (47.595711, -122.725563), (47.237523, -122.538190), (47.278138, -122.285465), (47.798126, -122.341378), (48.018115, -122.147663), (48.187589, -122.201805), (48.281306, -121.998726), (48.255384, -121.601282), (48.494241, -121.598667), coords.newhalem],
         DAY_COORD: (48.685241, -121.093832),
         DAY_COORD_LABEL: 'North Cascades NP, campsite 1',
         DAY_COORD_TYPE: DAY_COORD_CAMPING,
@@ -819,7 +819,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,8,4),
-        DAY_COORD: (48.671286, -121.263367),
+        DAY_COORD: coords.newhalem,
         DAY_COORD_LABEL: 'North Cascades NP, campsite 3',
         DAY_COORD_TYPE: DAY_COORD_CAMPING,
         DAY_PARKS: ['North Cascades NP'],
@@ -855,7 +855,7 @@ trip = [
         DAY_PARKS: ['Mount Rainier NP'],
         DAY_ANIMAL: ('Mountain goats', 'Mount Rainier NP'),
         DAY_GOT_HIGH: [('Panorama Point', 6800, [46.803712, -121.729529])],
-        DAY_SWIM: ('Huron River', coords.ohanapecosh), # TODO handle swimming multiple days (see yesterday)
+        DAY_SWIM: ('Ohanapecosh River', coords.ohanapecosh),
         DAY_MEALS: [('Camp', 'BBQ tri-tip', coords.ohanapecosh)], # TODO handle multiple meals in same spot (see yesterday)
     },
     {
@@ -886,7 +886,7 @@ trip = [
         DAY_PARKS: ['Saguaro NP'], # don't forget to add to parks dict
         DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
         DAY_GOT_HIGH: [('Empire State Building', 1000, [0,0])],
-        DAY_SWIM: ('Huron River', [0,0]),
+        DAY_SWIM: ('Huron River', (0,0)),
         DAY_MEALS: [('Tucson', 'Bills ribs', [0,0])],
         DAY_PIE: ('Shoo-fly pie', 'Lisa and Bill'),
         DAY_TIKI: ('Smugglers Cove', [0,0]),
