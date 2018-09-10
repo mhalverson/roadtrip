@@ -19,6 +19,7 @@ trip = [
         DAY_COORD_TYPE: DAY_COORD_CITY,
         DAY_MILES: 283,
         DAY_HOURS: 4.5,
+        DAY_OTHER: [('Car battery died', coords.sf)],
     },
     {
         DAY_DATE: date(2018,5,3),
@@ -107,6 +108,7 @@ trip = [
                       'Amanda, Hunter, Hunter, and Jamie': coords.austin},
         DAY_MEALS: [("Torchy's Tacos", 'Tex-mex tacos', (30.222304, -97.840411))],
         DAY_WEDDING: ('Jessica and Tommy', (32.551131, -95.858304)),
+        DAY_OTHER: [('O Henry Pun Off', coords.austin)],
     },
     {
         DAY_DATE: date(2018,5,13),
@@ -224,6 +226,7 @@ trip = [
         DAY_MILES: 148,
         DAY_HOURS: 2.5,
         DAY_PARKS: ['Congaree NP'],
+        DAY_OTHER: [('Bumping into Laurel and Andy in Savannah', coords.savannah)],
     },
     {
         DAY_DATE: date(2018,5,28),
@@ -239,6 +242,7 @@ trip = [
         DAY_MILES: 88,
         DAY_HOURS: 1.5,
         DAY_FRIENDS: {'Laurel and Andy': coords.north_augusta},
+        DAY_OTHER: [('After only two days, we are absolutely filthy from the Congaree', coords.congaree)],
     },
     {
         DAY_DATE: date(2018,5,30),
@@ -373,6 +377,7 @@ trip = [
         DAY_PARKS: ['White House', 'World War II Memorial', 'Vietnam Veterans Memorial', 'National Mall'],
         DAY_GOT_HIGH: [('Old Post Office', 315, (38.893839, -77.027628))],
         DAY_MEALS: [('Bluejacket', 'Burgers and beers', (38.875084, -77.000776))],
+        DAY_OTHER: [('We made silly faces in front of the White House', (38.897501, -77.036570))],
     },
     {
         DAY_DATE: date(2018,6,14),
@@ -436,6 +441,7 @@ trip = [
         DAY_MEALS: [('Absolute Bagels', 'Bagels', (40.802516, -73.967452)),
                     ("John's of Times Square", 'Pizza', (40.758222, -73.988382))],
         DAY_PIE: ('Buttercrunch toffee', 'Richard and Janice'),
+        DAY_OTHER: [('Guest sang at a Voices of Gotham barbershop rehearsal', (40.757264, -73.994299))],
     },
     {
         DAY_DATE: date(2018,6,22),
@@ -586,6 +592,7 @@ trip = [
         DAY_FRIENDS: {'Jeremy and Christine': coords.ann_arbor},
         DAY_SWIM: ('Huron River', coords.huron_river),
         DAY_MEALS: [('Blank Slate', 'Ice cream', (42.279710, -83.751276))],
+        DAY_OTHER: [('Matt lost his phone in the river :(', coords.huron_river)],
     },
     {
         DAY_DATE: date(2018,7,9),
@@ -692,6 +699,7 @@ trip = [
         DAY_FRIENDS: {'Nina and Alex': coords.sf},
         DAY_MEALS: [('Wedding reception', 'Mac and cheese', coords.conservatory_of_flowers)],
         DAY_WEDDING: ('Nina and Alex', coords.conservatory_of_flowers),
+        DAY_OTHER: [('Bumping into Jeff and Sharon on the streets of SF', coords.sf)],
     },
     {
         DAY_DATE: date(2018,7,22),
@@ -748,6 +756,7 @@ trip = [
         DAY_PARKS: ['Lava Beds NM'],
         DAY_MEALS: [('Camp', 'Avocado toast', coords.lava_beds)],
         DAY_CAVES: ['Lava Beds NM'],
+        DAY_OTHER: [('Matt finished his first journal, started a new one', coords.lava_beds)],
     },
     {
         DAY_DATE: date(2018,7,28),
@@ -810,6 +819,8 @@ trip = [
         DAY_HOURS: 9.25,
         DAY_PARKS: ['Olympic NP', 'North Cascades NP'],
         DAY_GOT_HIGH: [('Hurricane Ridge', 5242, coords.hurricane_ridge)],
+        DAY_OTHER: [('We learned the hard way that Google Maps has an option "avoid ferries"', coords.port_townsend),
+                    ('A rock struck the windshield and cracked it', (48.159020, -122.189644)),],
     },
     {
         DAY_DATE: date(2018,8,3),
@@ -954,5 +965,6 @@ trip = [
         DAY_TIKI: ('Smugglers Cove', (0,0)),
         DAY_CAVES: ['Lava Beds NM'],
         DAY_WEDDING: ('Egor and Quynh', (38.495568, -122.759396)),
+        DAY_OTHER: [('O Henry Pun Off', coords.austin)],
     },
 '''

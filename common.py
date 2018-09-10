@@ -19,5 +19,6 @@ DAY_PIE = 'pie' #optional; pair of (pie name, recipient). The coord will be take
 DAY_TIKI = 'tiki' #optional; pair of (bar name, coord)
 DAY_CAVES = 'caves' #optional; list of park names where we went caving on that day
 DAY_WEDDING = 'wedding' #optional; pair of (couple name, coord)
+DAY_OTHER = 'other_notable_event' #optional; pair of (event description, coord)
 
 # For a day template, see trip.py.
