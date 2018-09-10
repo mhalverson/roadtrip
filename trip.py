@@ -877,7 +877,7 @@ trip = [
         DAY_DATE: date(2018,8,),
         DAY_NEW_LEG: True,
         DAY_WAYPOINTS: [(0,0)],
-        DAY_COORD: [0, 0],
+        DAY_COORD: (0, 0),
         DAY_COORD_LABEL: 'Tucson',
         DAY_COORD_TYPE: DAY_COORD_CITY | DAY_COORD_CAMPING,
         DAY_MILES: 0,
