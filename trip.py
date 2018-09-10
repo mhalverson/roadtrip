@@ -134,7 +134,7 @@ trip = [
         DAY_COORD: coords.nola,
         DAY_FRIENDS: {'Alex, Tristan, and Heli': DAY_FRIEND_USE_PREV_COORD},
         DAY_MEALS: [("Commander's Palace", 'Cheesecake', (29.928735, -90.084255))],
-        DAY_TIKI: ("Beachbum Berry's Latitude 29", [29.953706, -90.065140]),
+        DAY_TIKI: ("Beachbum Berry's Latitude 29", (29.953706, -90.065140)),
     },
     {
         DAY_DATE: date(2018,5,17),
@@ -167,7 +167,7 @@ trip = [
     {
         DAY_DATE: date(2018,5,21),
         DAY_COORD: coords.orlando,
-        DAY_TIKI: ("Trader Sam's Grog Grotto", [28.405814, -81.585497]),
+        DAY_TIKI: ("Trader Sam's Grog Grotto", (28.405814, -81.585497)),
     },
     {
         DAY_DATE: date(2018,5,22),
@@ -363,7 +363,7 @@ trip = [
         DAY_COORD: coords.dc,
         DAY_FRIENDS: {'Dani and Petra': DAY_FRIEND_USE_PREV_COORD},
         DAY_PARKS: ['Lincoln Memorial', 'Korean War Veterans Memorial', 'Martin Luther King Jr Memorial', 'FDR Memorial', 'Thomas Jefferson Memorial', 'National Mall', 'Washington Monument'],
-        DAY_TIKI: ('Archipelago', [38.917167, -77.028263]),
+        DAY_TIKI: ('Archipelago', (38.917167, -77.028263)),
     },
     {
         DAY_DATE: date(2018,6,13),
@@ -621,14 +621,14 @@ trip = [
         DAY_MEALS: [("Wolfy's ", 'Hot Dogs', (41.990723, -87.698579)),
                     ('The Art of Pizza', 'Deep dish pizza', (41.937142, -87.668097))],
         DAY_PIE: ('Irish Car Bomb', 'Brenda'),
-        DAY_TIKI: ('Lost Lake', [41.932123, -87.707129]),
+        DAY_TIKI: ('Lost Lake', (41.932123, -87.707129)),
     },
     {
         DAY_DATE: date(2018,7,13),
         DAY_COORD: coords.chicago,
         DAY_FRIENDS: {'Brenda': DAY_FRIEND_USE_PREV_COORD},
         DAY_MEALS: [('Taste of Chicago food festival', 'Kim chi fries', (41.875727, -87.622655))],
-        DAY_TIKI: ('Three Dots and a Dash', [41.890313, -87.630560]),
+        DAY_TIKI: ('Three Dots and a Dash', (41.890313, -87.630560)),
     },
     {
         DAY_DATE: date(2018,7,14),
@@ -654,7 +654,7 @@ trip = [
         DAY_COORD: coords.minneapolis,
         DAY_FRIENDS: {'Vic and Ari': DAY_FRIEND_USE_PREV_COORD,
                       'Caleb and Amber': (44.985084, -93.383359)},
-        DAY_TIKI: ("Psycho Suzi's Motor Lounge", [45.007461, -93.272400]),
+        DAY_TIKI: ("Psycho Suzi's Motor Lounge", (45.007461, -93.272400)),
     },
     {
         DAY_DATE: date(2018,7,17),
@@ -889,7 +889,7 @@ trip = [
         DAY_SWIM: ('Huron River', (0,0)),
         DAY_MEALS: [('Tucson', 'Bills ribs', (0,0))],
         DAY_PIE: ('Shoo-fly pie', 'Lisa and Bill'),
-        DAY_TIKI: ('Smugglers Cove', [0,0]),
+        DAY_TIKI: ('Smugglers Cove', (0,0)),
         DAY_CAVES: ['Lava Beds NM'],
     },
 '''
