@@ -56,7 +56,8 @@ parks = {
     },
     'Prairie Creek SP': { # TODO find the actual coordinates
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(41.415622, -124.046819), (41.416374, -124.016537), (41.384539, -124.008453), (41.384742, -124.04632), (41.415622, -124.046819)]
+],
     },
     "Patrick's Point SP": { # TODO find the actual coordinates
         'type': 'Polygon',

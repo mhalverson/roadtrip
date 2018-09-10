@@ -870,6 +870,63 @@ trip = [
         DAY_PARKS: ['Mount Rainier NP'],
         DAY_MEALS: [('Salt and Straw', 'Ice cream', (45.504927, -122.630573))],
     },
+    {
+        DAY_DATE: date(2018,8,9),
+        DAY_COORD: coords.portland,
+        DAY_FRIENDS: {'Derek and Marisa': coords.portland}, # TODO Arbel, Emilie, Jack
+    },
+    {
+        DAY_DATE: date(2018,8,10),
+        DAY_COORD: coords.portland,
+        DAY_FRIENDS: {'Derek and Marisa': coords.portland}, # TODO and Arbel
+        DAY_MEALS: [('Salt and Straw', 'Ice cream', (45.528948, -122.698347))],
+        DAY_TIKI: ('Hale Pele', (45.535275, -122.637375)),
+    },
+    {
+        DAY_DATE: date(2018,8,11),
+        DAY_WAYPOINTS: [(45.028504, -123.054898), (44.005448, -123.055546), (43.338792, -121.724381), (43.070174, -121.825557), (43.085168, -122.310228)],
+        DAY_COORD: (42.683875, -122.619410),
+        DAY_COORD_LABEL: 'Joseph H. Stewart State Recreation Area',
+        DAY_COORD_TYPE: DAY_COORD_CAMPING,
+        DAY_MILES: 282,
+        DAY_HOURS: 5,
+        DAY_FRIENDS: {'Derek and Marisa': coords.portland},
+        DAY_PARKS: ['Crater Lake NP'],
+    },
+    #{
+    #    DAY_DATE: date(2018,8,12),
+    #    DAY_WAYPOINTS: [(42.427422, -123.016272), (42.378325, -123.549362), (41.901672, -123.742137), (41.762919, -124.162003), (41.689682, -124.112054), (41.513459, -124.033486), (41.363648, -123.993994), (41.278970, -124.084364), (41.167314, -124.100286)],
+    #    DAY_COORD: coords.patricks_point,
+    #    DAY_COORD_LABEL: "Patrick's Point SP",
+    #    DAY_COORD_TYPE: DAY_COORD_CAMPING,
+    #    DAY_MILES: 189,
+    #    DAY_HOURS: 4,
+    #    DAY_PARKS: ['Jedediah Smith SP', "Patrick's Point SP"],
+    #},
+    #{
+    #    DAY_DATE: date(2018,8,13),
+    #    DAY_COORD: coords.patricks_point,
+    #    DAY_MILES: 108,
+    #    DAY_HOURS: 2.75,
+    #    DAY_PARKS: ["Patrick's Point SP", 'Prairie Creek SP'],
+    #    DAY_ANIMAL: ('Elk', 'Prairie Creek SP'),
+    #},
+    #{
+    #    DAY_DATE: date(2018,8,14),
+    #    DAY_WAYPOINTS: [(41.064452, -124.140061), (41.018133, -124.104305), (40.924984, -124.117554)],
+    #    DAY_COORD: coords.arcata,
+    #    DAY_COORD_LABEL: 'Arcata',
+    #    DAY_COORD_TYPE: DAY_COORD_CITY,
+    #    DAY_MILES: 22,
+    #    DAY_HOURS: 0.5,
+    #    DAY_FRIENDS: {'Ann Tan': coords.arcata},
+    #    DAY_PARKS: ["Patrick's Point SP"],
+    #},
+    #{
+    #    DAY_DATE: date(2018,8,15),
+    #    DAY_COORD: coords.arcata,
+    #    DAY_FRIENDS: {'Ann Tan': coords.arcata},
+    #},
 ]
 
 '''
