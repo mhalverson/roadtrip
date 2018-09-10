@@ -105,7 +105,7 @@ trip = [
         DAY_HOURS: 5,
         DAY_FRIENDS: {'Jessica, Tommy, Conner, and Brady': coords.farmersville,
                       'Amanda, Hunter, Hunter, and Jamie': coords.austin},
-        DAY_MEALS: [('', "Torchy's Tacos", (30.222304, -97.840411))],
+        DAY_MEALS: [("Torchy's Tacos", 'Tex-mex tacos', (30.222304, -97.840411))],
     },
     {
         DAY_DATE: date(2018,5,13),
@@ -431,7 +431,7 @@ trip = [
         DAY_COORD: coords.nyc,
         DAY_FRIENDS: {'Richard and Janice': coords.nyc},
         DAY_GOT_HIGH: [('Empire State Building', 1250, (40.748416, -73.985661))],
-        DAY_MEALS: [('', 'Absolute Bagels', (40.802516, -73.967452)),
+        DAY_MEALS: [('Absolute Bagels', 'Bagels', (40.802516, -73.967452)),
                     ("John's of Times Square", 'Pizza', (40.758222, -73.988382))],
         DAY_PIE: ('Buttercrunch toffee', 'Richard and Janice'),
     },
@@ -563,7 +563,7 @@ trip = [
         DAY_MILES: 281,
         DAY_HOURS: 5.5,
         DAY_FRIENDS: {'Collin': coords.ithaca},
-        DAY_MEALS: [('', 'Purity Ice Cream', (42.444462, -76.508906))],
+        DAY_MEALS: [('Purity', 'Ice Cream', (42.444462, -76.508906))],
     },
     {
         DAY_DATE: date(2018,7,7),
@@ -661,7 +661,7 @@ trip = [
         DAY_COORD: coords.minneapolis,
         DAY_FRIENDS: {'Vic and Ari': coords.minneapolis,},
         # TODO 7/17 to 7/19 Mom and Dad, Julia Cachi Alex, Anita, Louise and David, Christopher, Flo
-        DAY_MEALS: [('', "Ari's Indonesian Feast", coords.minneapolis)],
+        DAY_MEALS: [("Vic and Ari's", "Homemade Indonesian Feast", coords.minneapolis)],
         DAY_PIE: ('Lemon cream pie *and* Bourbon ginger pecan', 'Vic and Ari'),
     },
     {
@@ -688,7 +688,7 @@ trip = [
         DAY_DATE: date(2018,7,21),
         DAY_COORD: coords.sf,
         DAY_FRIENDS: {'Nina and Alex': coords.sf},
-        DAY_MEALS: [('', 'Mac and cheese at the wedding!', coords.conservatory_of_flowers)],
+        DAY_MEALS: [('Wedding reception', 'Mac and cheese', coords.conservatory_of_flowers)],
     },
     {
         DAY_DATE: date(2018,7,22),
@@ -856,7 +856,7 @@ trip = [
         DAY_ANIMAL: ('Mountain goats', 'Mount Rainier NP'),
         DAY_GOT_HIGH: [('Panorama Point', 6800, (46.803712, -121.729529))],
         DAY_SWIM: ('Ohanapecosh River', coords.ohanapecosh),
-        DAY_MEALS: [('Camp', 'BBQ tri-tip', coords.ohanapecosh)], # TODO handle multiple meals in same spot (see yesterday)
+        DAY_MEALS: [('Camp', 'BBQ tri-tip', coords.ohanapecosh)],
     },
     {
         DAY_DATE: date(2018,8,8),
