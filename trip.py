@@ -147,7 +147,7 @@ trip = [
         DAY_COORD: coords.nola,
         DAY_FRIENDS: {'Alex, Tristan, and Heli': coords.nola},
         DAY_PARKS: ['Pearl River WMA'],
-        DAY_ANIMAL: ('Alligators', 'Pearl River WMA'),
+        DAY_ANIMAL: [('Alligators', 'Pearl River WMA')],
         DAY_MEALS: [("Cajun Mike's", 'Crawfish', (30.374936, -89.745182))],
     },
     {
@@ -178,7 +178,7 @@ trip = [
         DAY_MILES: 366,
         DAY_HOURS: 6,
         DAY_PARKS: ['Everglades NP'],
-        DAY_ANIMAL: ('Alligators', 'Everglades NP'),
+        DAY_ANIMAL: [('Alligators', 'Everglades NP')],
         DAY_GOT_HIGH: [('Mahogany Hammock', 4, (25.322842, -80.833305))],
     },
     {
@@ -320,7 +320,7 @@ trip = [
         DAY_MILES: 241,
         DAY_HOURS: 4.25,
         DAY_PARKS: ['Great Smoky Mountains NP'],
-        DAY_ANIMAL: ('Bear and bear cubs', 'Great Smoky Mountains NP'),
+        DAY_ANIMAL: [('Bear and bear cubs', 'Great Smoky Mountains NP')],
         DAY_GOT_HIGH: [("Clingman's Dome", 6643, (35.562761, -83.498481))],
         DAY_MEALS: [('Camp', 'Japanese noodles, tofu, asparagus, mushrooms, hot chili oil, ginger, soy sauce', coords.smokies)],
     },
@@ -725,7 +725,7 @@ trip = [
         DAY_DATE: date(2018,7,25),
         DAY_COORD: coords.lassen,
         DAY_PARKS: ['Lassen Volcanic NP'],
-        DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
+        DAY_ANIMAL: [('Bear', 'Lassen Volcanic NP')],
         DAY_SWIM: ('Ridge Lakes', (40.456450, -121.549242)),
     },
     {
@@ -737,7 +737,7 @@ trip = [
         DAY_MILES: 151,
         DAY_HOURS: 3,
         DAY_PARKS: ['Lassen Volcanic NP', 'McArthur-Burney Falls Memorial SP', 'Lava Beds NM'],
-        DAY_ANIMAL: ('Nesting black swifts', 'McArthur-Burney Falls Memorial SP'),
+        DAY_ANIMAL: [('Nesting black swifts', 'McArthur-Burney Falls Memorial SP')],
     },
     {
         DAY_DATE: date(2018,7,27),
@@ -853,7 +853,7 @@ trip = [
         DAY_MILES: 47,
         DAY_HOURS: 1.5,
         DAY_PARKS: ['Mount Rainier NP'],
-        DAY_ANIMAL: ('Mountain goats', 'Mount Rainier NP'),
+        DAY_ANIMAL: [('Mountain goats', 'Mount Rainier NP')],
         DAY_GOT_HIGH: [('Panorama Point', 6800, (46.803712, -121.729529))],
         DAY_SWIM: ('Ohanapecosh River', coords.ohanapecosh),
         DAY_MEALS: [('Camp', 'BBQ tri-tip', coords.ohanapecosh)],
@@ -874,6 +874,7 @@ trip = [
         DAY_DATE: date(2018,8,9),
         DAY_COORD: coords.portland,
         DAY_FRIENDS: {'Derek and Marisa': coords.portland}, # TODO Arbel, Emilie, Jack
+        DAY_ANIMAL: [('Elk', 'Prairie Creek SP')],
     },
     {
         DAY_DATE: date(2018,8,10),
@@ -909,7 +910,7 @@ trip = [
     #    DAY_MILES: 108,
     #    DAY_HOURS: 2.75,
     #    DAY_PARKS: ["Patrick's Point SP", 'Prairie Creek SP'],
-    #    DAY_ANIMAL: ('Elk', 'Prairie Creek SP'),
+    #    DAY_ANIMAL: [('Elk', 'Prairie Creek SP')],
     #},
     #{
     #    DAY_DATE: date(2018,8,14),
@@ -941,7 +942,7 @@ trip = [
         DAY_HOURS: 0,
         DAY_FRIENDS: {'Lisa and Bill': (0,0)},
         DAY_PARKS: ['Saguaro NP'], # don't forget to add to parks dict
-        DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
+        DAY_ANIMAL: [('Bear', 'Lassen Volcanic NP')],
         DAY_GOT_HIGH: [('Empire State Building', 1000, (0,0))],
         DAY_SWIM: ('Huron River', (0,0)),
         DAY_MEALS: [('Tucson', 'Bills ribs', (0,0))],
