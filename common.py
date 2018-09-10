@@ -9,9 +9,7 @@ DAY_COORD_CAMPING = 'camping'
 DAY_COORD_CITY = 'city'
 DAY_MILES = 'miles' #optional; indicates how many miles we drove that day
 DAY_HOURS = 'hours' #optional; indicates how many hours we drove that day
-DAY_FRIENDS = 'friends' #optional; dict where key = friends or family members who we saw on that day (string) and value = either lat/lng or DAY_FRIEND_USE_SLEEP_COORD or DAY_FRIEND_SAME_AS_PREV
-DAY_FRIEND_USE_SLEEP_COORD = 'friend coord should be the same as DAY_COORD'
-DAY_FRIEND_USE_PREV_COORD = "friend coord should be the same as the previous day's friend coord"
+DAY_FRIENDS = 'friends' #optional; dict where key = friends or family members who we saw on that day (string) and value = latlng
 DAY_PARKS = 'parks' #optional; list indicating which parks we visited on that day. The geojson for parks are specified in a separate dict, so you'll have to add an entry in that dict when you add a new park to the list.
 DAY_ANIMAL = 'animal' #optional; pair of (animal name, park name)
 DAY_GOT_HIGH = 'got_high' #optional; list of triplets of (place name, height, coord) of high elevations we achieved
