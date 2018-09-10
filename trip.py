@@ -106,6 +106,7 @@ trip = [
         DAY_FRIENDS: {'Jessica, Tommy, Conner, and Brady': coords.farmersville,
                       'Amanda, Hunter, Hunter, and Jamie': coords.austin},
         DAY_MEALS: [("Torchy's Tacos", 'Tex-mex tacos', (30.222304, -97.840411))],
+        DAY_WEDDING: ('Jessica and Tommy', (32.551131, -95.858304)),
     },
     {
         DAY_DATE: date(2018,5,13),
@@ -391,6 +392,7 @@ trip = [
         DAY_DATE: date(2018,6,16),
         DAY_COORD: coords.portland,
         DAY_FRIENDS: {'Derek and Marisa': coords.portland},
+        DAY_WEDDING: ('Georgia and Eric', (45.550298, -122.685695)),
     },
     {
         DAY_DATE: date(2018,6,17),
@@ -689,6 +691,7 @@ trip = [
         DAY_COORD: coords.sf,
         DAY_FRIENDS: {'Nina and Alex': coords.sf},
         DAY_MEALS: [('Wedding reception', 'Mac and cheese', coords.conservatory_of_flowers)],
+        DAY_WEDDING: ('Nina and Alex', coords.conservatory_of_flowers),
     },
     {
         DAY_DATE: date(2018,7,22),
@@ -768,6 +771,7 @@ trip = [
         DAY_HOURS: 1,
         DAY_FRIENDS: {'Derek and Marisa': coords.portland,
                       'Mike and Kristine, the Alberti family, Pablo, Jake and Adam, Eric Tooley':  coords.skamania},
+        DAY_WEDDING: ('Mike and Kristine', coords.skamania),
     },
     {
         DAY_DATE: date(2018,7,30),
@@ -949,5 +953,6 @@ trip = [
         DAY_PIE: ('Shoo-fly pie', 'Lisa and Bill'),
         DAY_TIKI: ('Smugglers Cove', (0,0)),
         DAY_CAVES: ['Lava Beds NM'],
+        DAY_WEDDING: ('Egor and Quynh', (38.495568, -122.759396)),
     },
 '''

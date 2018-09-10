@@ -18,25 +18,6 @@ DAY_MEALS = 'meals' #optional; list of triplets of (place name, description of m
 DAY_PIE = 'pie' #optional; pair of (pie name, recipient). The coord will be taken from the most recent DAY_COORD
 DAY_TIKI = 'tiki' #optional; pair of (bar name, coord)
 DAY_CAVES = 'caves' #optional; list of park names where we went caving on that day
+DAY_WEDDING = 'wedding' #optional; pair of (couple name, coord)
 
-trip_entry_template = '''
-    {
-        DAY_DATE: date(2018,7,),
-        DAY_NEW_LEG: True,
-        DAY_WAYPOINTS: [(0,0)],
-        DAY_COORD: (0,0),
-        DAY_COORD_LABEL: 'Tucson',
-        DAY_COORD_TYPE: DAY_COORD_CITY | DAY_COORD_CAMPING,
-        DAY_MILES: 0,
-        DAY_HOURS: 0,
-        DAY_FRIENDS: {'Fred': (0,0) | DAY_FRIEND_USE_SLEEP_COORD | DAY_FRIEND_USE_PREV_COORD},
-        DAY_PARKS: ['Saguaro NP'], # don't forget to add to parks dict
-        DAY_ANIMAL: ('Bear', 'Lassen Volcanic NP'),
-        DAY_GOT_HIGH: [('Empire State Building', 1000, (0,0))],
-        DAY_SWIM: ('Huron River', (0,0)),
-        DAY_MEALS: [('Tucson', 'ribs', (0,0))],
-        DAY_PIE: ('Apple', 'Fred'),
-        DAY_TIKI: ('Smugglers Cove', (0,0)),
-        DAY_CAVES: ['Lava Beds NM'],
-    },
-'''
+# For a day template, see trip.py.
