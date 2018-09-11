@@ -1,9 +1,14 @@
-# For national parks and national monuments, specify the four-letter abbreviation
-# and the program will attempt to look it up in the nationalparkservice data
-# repository (https://github.com/nationalparkservice/data).
-#
-# Otherwise, just specify the GeoJson data inline.
-parks = {
+# The main export of this module is the "parks" dict.
+
+import json
+
+park_data = {
+    # For national parks and national monuments, specify the four-letter
+    # abbreviation and the program will attempt to look it up in the
+    # nationalparkservice data repository
+    # (https://github.com/nationalparkservice/data).
+    #
+    # Otherwise, just specify the GeoJson data inline.
     'Saguaro NP': 'sagu',
     'White Sands NM': 'whsa',
     'Carlsbad Caverns NP': 'cave',
@@ -50,39 +55,49 @@ parks = {
     'North Cascades NP': 'noca',
     'Mount Rainier NP': 'mora',
     'Crater Lake NP': 'crla',
-    'Jedediah Smith SP': { # TODO find the actual coordinates
+    'Jedediah Smith SP': { # TODO find the actual coordinates... this is prairie creek
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
     'Prairie Creek SP': { # TODO find the actual coordinates
         'type': 'Polygon',
         'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]
 ],
     },
-    "Patricks Point SP": { # TODO find the actual coordinates
+    "Patricks Point SP": { # TODO find the actual coordinates... this is prairie creek
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
     'Isle Royale NP': 'isro',
-    'Boundary Waters Canoe Wilderness Area': { # TODO find the actual coordinates
+    'Boundary Waters Canoe Wilderness Area': { # TODO find the actual coordinates... this is prairie creek
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
     'Badlands NP': 'badl',
     'Mount Rushmore NM': 'moru',
-    'Custer SP': { # TODO find the actual coordinates
+    'Custer SP': { # TODO find the actual coordinates... this is prairie creek
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
     'Wind Cave NP': 'wica',
     'Jewel Cave NM': 'jeca',
     "Devil's Tower NM": 'deto',
-    'Banff NP': { # TODO find the actual coordinates
+    'Banff NP': { # TODO find the actual coordinates... this is prairie creek
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
-    'Jasper NP': { # TODO find the actual coordinates
+    'Jasper NP': { # TODO find the actual coordinates... this is prairie creek
         'type': 'Polygon',
-        'coordinates': [],
+        'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
 }
+
+parks = {}
+for p, data in park_data.iteritems():
+    # coerce to shapely geometries from https://medium.com/@pramukta/recipe-importing-geojson-into-shapely-da1edf79f41d
+    if isinstance(data, str):
+        with open('../data/base_data/boundaries/parks/{}.geojson'.format(data)) as f:
+            geom = json.load(f)["geometry"]
+    else:
+        geom = data
+    parks[p] = geom

@@ -6,7 +6,7 @@ from xml.sax.saxutils import escape
 
 import folium
 from folium import FeatureGroup, GeoJson, LayerControl, Map, Marker, Popup, plugins
-from shapely.geometry import shape, GeometryCollection, Point
+from shapely.geometry import shape, GeometryCollection, Point, mapping
 
 from common import *
 import coords
@@ -18,10 +18,14 @@ from trip import trip
 # next steps --
 #
 # . populate TRIP!
-# . fold Facebook etc into trip.py... it's confusing to have them split out 
-# . reenable the parks layer, and fix the Saguaro bug
-# . TODOs
-# .   major theme of TODOs - what icons are available? what if I want different ones?
+
+# . fold Facebook etc into trip.py with DAY_FACEBOOK?
+# . move feature_group calculation into their own file, move summary/superlative data into its own file
+
+# . fix the Saguaro park-centroid bug
+# . look up the park boundaries (some are really really fudged...)
+# . figure out icons
+# . grep for other TODOs
 
 ICON_CAMPING = 'chevron-up'
 COLOR_CAMPING = 'green'
@@ -246,16 +250,6 @@ for s in states:
 fg_park = FeatureGroup(name='Parks we visited', show=False)
 fg_park.add_to(m)
 
-park_dicts = {}
-for p, data in parks.iteritems():
-    # coerce to shapely geometries from https://medium.com/@pramukta/recipe-importing-geojson-into-shapely-da1edf79f41d
-    if isinstance(data, str):
-        with open('../data/base_data/boundaries/parks/{}.geojson'.format(data)) as f:
-            geom = json.load(f)["geometry"]
-    else:
-        geom = data
-    park_dicts[p] = geom
-
 summary_park = defaultdict(list)
 
 for day in trip:
@@ -264,14 +258,16 @@ for day in trip:
             summary_park[p].append(day[DAY_DATE])
 
 def add_park(park, popup, feature_group):
-    geom = park_dicts[park]
-    
-    geojson = GeoJson(geom)
-    geojson.add_to(feature_group)
-        
-    gc = GeometryCollection([shape(geom)])
-    # TODO this does weird things for Saguaro and Acadia...
-    centroid = gc.centroid
+    geom_raw = parks[park]
+
+    gc_raw = GeometryCollection([shape(geom_raw)])
+    gc_simple = GeometryCollection.simplify(gc_raw, 0.01) # TODO 0.01 is made up from thin air, what should it really be?
+
+    geojson_simple = GeoJson(mapping(gc_simple))
+    geojson_simple.add_to(feature_group)
+
+    # TODO this does weird things for Saguaro, Acadia, North Cascades
+    centroid = gc_raw.centroid
     Marker(
         location=(centroid.y, centroid.x),
         popup=popup,
@@ -280,7 +276,7 @@ def add_park(park, popup, feature_group):
 for p, date_ranges in summary_park.iteritems():
     date_range = collapse_date_ranges(date_ranges)
     popup = html_escape([p, date_range])
-    # add_park(p, popup, fg_park) # TODO UNCOMMENT ME
+    add_park(p, popup, fg_park)
 
 # 5 Superlative cities # TODO revisit when done
 fg_superlative_cities = FeatureGroup(name='Favourite (+least) city', show=False)
@@ -307,7 +303,7 @@ fg_superlative_nature = FeatureGroup(name='Favourite (+least) nature', show=Fals
 fg_superlative_nature.add_to(m)
 
 superlative_nature_data = [
-    ('2018-09-02 to 2018-09-07', 'Favorite for Matt and Claire', 'Acadia NP'), # TODO this should be Banff
+    ('2018-09-02 to 2018-09-07', 'Favorite for Matt and Claire', 'Banff NP'),
     ('2018-05-27 to 2018-05-29', 'Least favorite for Matt and Claire', 'Congaree NP'),
 ]
 
@@ -648,7 +644,6 @@ for day in trip:
 
 # Map finalize
 LayerControl().add_to(m)
-m
 
 # Summary table
 SUMMARY_BOOKS_READ = [
