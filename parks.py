@@ -98,6 +98,14 @@ for p, data in park_data.iteritems():
     if isinstance(data, str):
         with open('../data/base_data/boundaries/parks/{}.geojson'.format(data)) as f:
             geom = json.load(f)["geometry"]
+            # Special handling -- the parks dataset handles MultiPolygons
+            # incorrectly. Instead of handling them as separate 'islands', it
+            # treats the first island as the shell and subsequent islands as
+            # holes that are not contained within the shell o_O This causes
+            # incorrect calculation of centroids, among other things.
+            if len(geom['coordinates']) > 1:
+                geom['type'] = u'MultiPolygon'
+                geom['coordinates'] = [[shell] for shell in geom['coordinates']]
     else:
         geom = data
     parks[p] = geom

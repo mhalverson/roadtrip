@@ -22,7 +22,6 @@ from trip import trip
 # . fold Facebook etc into trip.py with DAY_FACEBOOK?
 # . move feature_group calculation into their own file, move summary/superlative data into its own file
 
-# . fix the Saguaro park-centroid bug
 # . look up the park boundaries (some are really really fudged...)
 # . figure out icons
 # . grep for other TODOs
@@ -266,7 +265,6 @@ def add_park(park, popup, feature_group):
     geojson_simple = GeoJson(mapping(gc_simple))
     geojson_simple.add_to(feature_group)
 
-    # TODO this does weird things for Saguaro, Acadia, North Cascades
     centroid = gc_raw.centroid
     Marker(
         location=(centroid.y, centroid.x),
