@@ -419,6 +419,11 @@ fg_facebook = FeatureGroup(name='Facebook posts', show=False)
 fg_facebook.add_to(m)
 
 facebook_data = [
+    #('2018-05-01 to 2018-05-03',
+    # 'San Francisco',
+    # '',
+    # [[]],
+    #),
     ('2018-05-03 to 2018-05-06',
      'Arizona',
      'https://www.facebook.com/mhhalverson/posts/10214603370971715',
@@ -471,7 +476,11 @@ facebook_data = [
     # '2018-08-02 to 2018-08-08', 'Washington part II', 'https://www.facebook.com/mhhalverson/posts/10215307816702418'
     # '2018-08-08 to 2018-08-20', 'Portland part II and NorCal Coast', 'https://www.facebook.com/mhhalverson/posts/10215340132510293'
     # '2018-08-20 to 2018-08-27', 'Northern Minnesota', 'https://www.facebook.com/mhhalverson/posts/10215397078453906'
-    # '2018-08-27 to 2018-08-', 'South Dakota', ''
+    # '2018-08-27 to 2018-09-02', 'South Dakota', ''
+    # '2018-09-02 to 2018-09-07', 'Banff', ''
+    # '2018-09-07 to 2018-09-10', 'Santa Rosa', ''
+    # '2018-09-10 to 2018-09-14', 'Glacier', ''
+    # '2018-09-14 to 2018-09-', 'Yellowstone', ''
     # TODO fill this out
 ]
 
@@ -586,8 +595,7 @@ fg_elevation = FeatureGroup(name='Highest/lowest elevation', show=False)
 fg_elevation.add_to(m)
 
 elevation_data = [
-    # TODO revisit at end for the actual high/low
-    ('2018-05-01', 'Sandia Mountains', 10000, (35.210010, -106.449175)),
+    ('2018-09-24', 'Trail Ridge Road Summit', 12183, coords.trail_ridge_road_summit),
     ('2018-05-14 to 2018-05-19', 'New Orleans', -4, coords.nola),
 ]
 
@@ -607,7 +615,7 @@ fg_temperature.add_to(m)
 temperature_data = [
     # TODO revisit at end for the actual high/low
     ('2018-05-05', 'Tucson', '100F/38C', coords.tucson),
-    ('2018-09-03', 'Banff', '35F/1C', coords.two_jack)
+    ('2018-09-03', 'Banff', '33F/1C', coords.two_jack)
 ]
 
 for date, place, temp, coord in temperature_data:
@@ -660,10 +668,13 @@ SUMMARY_BOOKS_READ = [
     'The Slow Regard of Silent Things',
     'Red Rising',
     'Golden Son',
-    # 'Blood Meridian',
-    # 'The Great War for New Zealand',
-    # 'Morning Star',
+    'Morning Star',
+    'The Great War for New Zealand',
+    'Blood Meridian',
+    # 'The Luminaries',
+    # 'Iron Gold',
 ] # TODO render this somehow
+# TODO add authors
 
 [('Total days on the road', summary[SUMMARY_DAYS_TOTAL]),
  ('Days of camping', summary[SUMMARY_DAYS_CAMPING]),

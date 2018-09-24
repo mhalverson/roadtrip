@@ -90,6 +90,11 @@ park_data = {
         'type': 'Polygon',
         'coordinates': [[(-124.046819, 41.415622), (-124.016537, 41.416374), (-124.008453, 41.384539), (-124.04632, 41.384742), (-124.046819, 41.415622)]],
     },
+    'Glacier NP': 'glac',
+    'Yellowstone NP': 'yell',
+    'Grand Teton NP': 'grte',
+    'Rocky Mountain NP': 'romo',
+    'Mesa Verde NP': 'meve',
 }
 
 parks = {}
