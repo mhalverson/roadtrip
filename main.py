@@ -22,7 +22,6 @@ from trip import trip
 # . fold Facebook etc into trip.py with DAY_FACEBOOK?
 # . move feature_group calculation into their own file, move summary/superlative data into its own file
 
-# . look up the park boundaries (some are really really fudged...)
 # . figure out icons
 # . grep for other TODOs
 
