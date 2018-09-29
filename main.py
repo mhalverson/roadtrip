@@ -676,7 +676,7 @@ SUMMARY_BOOKS_READ = [
 ] # TODO render this somehow
 # TODO add authors
 
-[('Total days on the road', summary[SUMMARY_DAYS_TOTAL]),
+executive_summary = [('Total days on the road', summary[SUMMARY_DAYS_TOTAL]),
  ('Days of camping', summary[SUMMARY_DAYS_CAMPING]),
  ('Days in cities', summary[SUMMARY_DAYS_CITY]),
  ('Total miles of driving', summary[SUMMARY_MILES]),

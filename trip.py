@@ -217,6 +217,7 @@ trip = [
         DAY_COORD: coords.savannah,
         DAY_FRIENDS: {'Laurel and Andy': coords.savannah},
         DAY_MEALS: [("Zunzi's", 'South African sandwiches', (32.077387, -81.090854))],
+        DAY_OTHER: [('Saw license plates from all 50 states: lap #1 (New Hampshire)', (32.076473, -81.091756))],
     },
     {
         DAY_DATE: date(2018,5,27),
@@ -821,7 +822,8 @@ trip = [
         DAY_PARKS: ['Olympic NP', 'North Cascades NP'],
         DAY_GOT_HIGH: [('Hurricane Ridge', 5242, coords.hurricane_ridge)],
         DAY_OTHER: [('We learned the hard way that Google Maps has an option "avoid ferries"', coords.port_townsend),
-                    ('A rock struck the windshield and cracked it', (48.159020, -122.189644)),],
+                    ('A rock struck the windshield and cracked it', (48.159020, -122.189644)),
+                    ('Saw license plates from all 50 states: lap #2 (Hawaii)', (47.232739, -122.434113))],
     },
     {
         DAY_DATE: date(2018,8,3),
@@ -951,6 +953,7 @@ trip = [
         DAY_HOURS: 5,
         DAY_FRIENDS: {'Ann Tan': coords.arcata,
                       'Nina and Alex': coords.sf}, # TODO and Phil and Griffin, Ray and Jeff
+        DAY_OTHER: [('Skipped camping at Trinity Lake because the road had melted from wildfires :O', (40.837137, -122.853410))],
     },
     {
         DAY_DATE: date(2018,8,17),
@@ -1194,6 +1197,7 @@ trip = [
         DAY_ANIMAL: [('Ptarmigan', 'Glacier NP'),
                      ('Mountain goats', 'Glacier NP')],
         DAY_MEALS: [('Camp', 'Chicken soup', coords.glacier)],
+        DAY_OTHER: [('Saw license plates from all 50 states: lap #3 (Vermont)', (48.797324, -113.678206))],
     },
     {
         DAY_DATE: date(2018,9,12),
@@ -1269,6 +1273,7 @@ trip = [
                      ('Grizzly bears (captive)', 'Yellowstone NP'),
                      ('Wolves (captive)', 'Yellowstone NP')],
         DAY_MEALS: [("Mountain Mama's Starbucks", 'Elk and bison pot pies', (44.660739, -111.098406))],
+        DAY_OTHER: [('Saw license plates from all 50 states: lap #4 (West Virginia)', (44.696586, -110.741731))],
     },
     {
         DAY_DATE: date(2018,9,19),
@@ -1312,6 +1317,8 @@ trip = [
         DAY_MILES: 371,
         DAY_HOURS: 6,
         DAY_PARKS: ['Grand Teton NP'],
+        DAY_OTHER: [('We shaved our heads', (41.309564, -105.561877))],
+        
     },
     {
         DAY_DATE: date(2018,9,23),
@@ -1326,23 +1333,59 @@ trip = [
     {
         DAY_DATE: date(2018,9,24),
         DAY_COORD: coords.aspenglen,
-        DAY_COORD_LABEL: 'Rocky Mountain, campsite 1',
-        DAY_COORD_TYPE: DAY_COORD_CAMPING,
-        DAY_MILES: 43,
-        DAY_HOURS: 1.5,
         DAY_PARKS: ['Rocky Mountain NP'],
         DAY_ANIMAL: [('Elk herd', 'Rocky Mountain NP'),
                      ('Yellow-bellied marmot', 'Rocky Mountain NP'), ],
         DAY_GOT_HIGH: [('Trail Ridge Road summit', 12183, coords.trail_ridge_road_summit)],
         DAY_MEALS: [('Camp', 'Avocado marmite toast', coords.aspenglen)],
-        DAY_OTHER: [('It snowed!', (40.440892, -105.754561))],
+        DAY_OTHER: [('It snowed', (40.440892, -105.754561))],
+    },
+    {
+        DAY_DATE: date(2018,9,25),
+        DAY_COORD: (40.359097, -105.599538),
+        DAY_COORD_LABEL: 'Rocky Mountain, campsite 2',
+        DAY_COORD_TYPE: DAY_COORD_CAMPING,
+        DAY_MILES: 25,
+        DAY_HOURS: 1,
+        DAY_PARKS: ['Rocky Mountain NP'],
+        DAY_ANIMAL: [('Elk herd', 'Rocky Mountain NP'),
+                     ("Clark's nutcracker", 'Rocky Mountain NP')],
+        DAY_GOT_HIGH: [('Emerald Lake', 10110, (40.309869, -105.667236))],
+    },
+    {
+        DAY_DATE: date(2018,9,26),
+        DAY_WAYPOINTS: [(40.212806, -105.236230), (39.638738, -105.165612), (39.407893, -105.476072), (39.458938, -105.713145), (39.221071, -105.992654), (38.848192, -105.979847), (38.812456, -106.117505), (38.449038, -106.107925), (38.184564, -105.937494), (38.089874, -106.142102), (37.746527, -106.146978), (37.671115, -106.641448), (37.263080, -106.993531), (37.340781, -108.410918)],
+        DAY_COORD: coords.mesa_verde,
+        DAY_COORD_LABEL: 'Mesa Verde',
+        DAY_COORD_TYPE: DAY_COORD_CAMPING,
+        DAY_MILES: 428,
+        DAY_HOURS: 8.5,
+        DAY_FRIENDS: {'Daniel and Jilmarie': (40.019204, -105.274210)},
+        DAY_PARKS: ['Rocky Mountain NP', 'Mesa Verde NP'],
+    },
+    {
+        DAY_DATE: date(2018,9,27),
+        DAY_COORD: coords.mesa_verde,
+        DAY_MILES: 65,
+        DAY_HOURS: 2,
+        DAY_PARKS: ['Mesa Verde NP'],
+    },
+    {
+        DAY_DATE: date(2018,9,28),
+        DAY_WAYPOINTS: [(37.340781, -108.410918), (37.355140, -108.589473), (37.761145, -108.881207), (37.872534, -109.343174), (38.282242, -109.372351)],
+        DAY_COORD: (38.580956, -109.551268),
+        DAY_COORD_LABEL: 'Moab',
+        DAY_COORD_TYPE: DAY_COORD_CITY,
+        DAY_MILES: 150,
+        DAY_HOURS: 3,
+        DAY_PARKS: ['Mesa Verde NP', 'Arches NP'],
+        DAY_OTHER: [('Saw license plates from all 50 states: lap #5 (Delaware)', (38.687153, -109.536785))],
     },
 ]
 
 '''
     {
         DAY_DATE: date(2018,9,),
-        DAY_NEW_LEG: True,
         DAY_WAYPOINTS: [(0,0)],
         DAY_COORD: (0, 0),
         DAY_COORD_LABEL: 'Tucson',
