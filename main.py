@@ -17,11 +17,12 @@ from trip import trip
 
 # next steps --
 #
-# . populate TRIP!
-
-# . fold Facebook etc into trip.py with DAY_FACEBOOK?
+# . populate TRIP! and other summary data (including facebook posts)
+#
+# . clean up the route line in Portland, Acadia, Shenandoah, Quinault
+#
 # . move feature_group calculation into their own file, move summary/superlative data into its own file
-
+#
 # . figure out icons
 # . grep for other TODOs
 
@@ -417,81 +418,218 @@ summary_extreme_nsew = map(
 fg_facebook = FeatureGroup(name='Facebook posts', show=False)
 fg_facebook.add_to(m)
 
-facebook_data = [
-    #('2018-05-01 to 2018-05-03',
-    # 'San Francisco',
-    # '',
-    # [[]],
-    #),
-    ('2018-05-03 to 2018-05-06',
-     'Arizona',
-     'https://www.facebook.com/mhhalverson/posts/10214603370971715',
-     [[(-111.364628, 32.605047), (-111.364628, 32.048667), (-110.421808, 32.048667), (-110.421808, 32.605047), (-111.364628, 32.605047)]],
-    ),
-    ('2018-05-06 to 2018-05-09',
-     'New Mexico',
-     'https://www.facebook.com/mhhalverson/posts/10214611861183965',
-     [[(-107.052234, 35.437892), (-106.686764, 32.610222), (-104.714319, 32.064686), (-104.064285, 32.064755), (-104.730264, 34.796961), (-107.052234, 35.437892)]],
-    ),
-    ('2018-05-09 to 2018-05-14',
-     'Texas',
-     'https://www.facebook.com/mhhalverson/posts/10214647074024264',
-     [[(-98.486359, 33.423138), (-98.486359, 30.071288), (-95.812688, 30.071288), (-95.812688, 33.423138), (-98.486359, 33.423138)]],
-    ),
-    ('2018-05-14 to 2018-05-19',
-     'New Orleans',
-     'https://www.facebook.com/mhhalverson/posts/10214686987822084' and 'https://www.facebook.com/photo.php?fbid=10106654355949163&set=a.763822147163.2423144.3204198&type=3&theater',
-     [[(-90.994541, 30.981744), (-90.994541, 29.45283), (-89.452761, 29.45283), (-89.452761, 30.981744), (-90.994541, 30.981744)]],
-    ),
-    ('2018-05-19 to 2018-05-25',
-     'Florida',
-     'https://www.facebook.com/mhhalverson/posts/10214716057188800',
-     [[(-82.260209, 28.722341), (-82.260209, 24.345069), (-79.892713, 24.345069), (-79.892713, 28.722341), (-82.260209, 28.722341)]],
-    ),
-    ('2018-05-25 to 2018-06-03',
-     'Georgia and South Carolina', 
-     'https://www.facebook.com/mhhalverson/posts/10214783041263360',
-     [[(-83.449913, 35.048522), (-83.449913, 31.900097), (-80.760202, 31.900097), (-80.760202, 35.048522), (-83.449913, 35.048522)]],
-    ),
-    ('2018-06-03 to 2018-06-07',
-     'Tennessee and Kentucky',
-     'https://www.facebook.com/mhhalverson/posts/10214815490914581',
-     [[(-86.291668, 37.933145), (-87.247854, 35.958984), (-86.006265, 35.729173), (-85.446752, 37.154989), (-83.987198, 37.80856), (-84.190357, 38.3527), (-86.291668, 37.933145)]],
-    ),
-    # '2018-06-07 to 2018-06-11', 'Great Smoky Mountains and Shenandoah', 'https://www.facebook.com/mhhalverson/posts/10214849564246393'
-    # '2018-06-11 to 2018-06-15', 'Washington DC', 'https://www.facebook.com/mhhalverson/posts/10214895582196813'
-    # '2018-06-15 to 2018-06-18', 'Portland part I', 'https://www.facebook.com/mhhalverson/posts/10214917720030245'
-    # '2018-06-18 to 2018-06-23', 'Philadelphia and New York City', 'https://www.facebook.com/mhhalverson/posts/10214961746130870'
-    # '2018-06-23 to 2018-06-28', 'Boston and Rhode Island', 'https://www.facebook.com/mhhalverson/posts/10214991754041049'
-    # '2018-06-28 to 2018-07-01', 'Maine', 'https://www.facebook.com/mhhalverson/posts/10215024532660494'
-    # '2018-07-01 to 2018-07-03', 'New Hampshire', 'https://www.facebook.com/mhhalverson/posts/10215046110919937'
-    # '2018-07-03 to 2018-07-07', 'Vermont and Upstate NY', 'https://www.facebook.com/mhhalverson/posts/10215064045648294'
-    # '2018-07-07 to 2018-07-11', 'Michigan', 'https://www.facebook.com/mhhalverson/posts/10215082670073893'
-    # '2018-07-11 to 2018-07-15', 'Chicago', 'https://www.facebook.com/mhhalverson/posts/10215136384056709'
-    # '2018-07-15 to 2018-07-19', 'Minneapolis', 'https://www.facebook.com/mhhalverson/posts/10215155600417106'
-    # '2018-07-19 to 2018-07-22', 'San Francisco', 'https://www.facebook.com/mhhalverson/posts/10215173199177064'
-    # '2018-07-22 to 2018-07-28', 'Northeastern California', 'https://www.facebook.com/mhhalverson/posts/10215199932285375'
-    # '2018-07-28 to 2018-08-02', 'Washington part I', 'https://www.facebook.com/mhhalverson/posts/10215279409032244'
-    # '2018-08-02 to 2018-08-08', 'Washington part II', 'https://www.facebook.com/mhhalverson/posts/10215307816702418'
-    # '2018-08-08 to 2018-08-20', 'Portland part II and NorCal Coast', 'https://www.facebook.com/mhhalverson/posts/10215340132510293'
-    # '2018-08-20 to 2018-08-27', 'Northern Minnesota', 'https://www.facebook.com/mhhalverson/posts/10215397078453906'
-    # '2018-08-27 to 2018-09-02', 'South Dakota', ''
-    # '2018-09-02 to 2018-09-07', 'Banff', ''
-    # '2018-09-07 to 2018-09-10', 'Santa Rosa', ''
-    # '2018-09-10 to 2018-09-14', 'Glacier', ''
-    # '2018-09-14 to 2018-09-', 'Yellowstone', ''
-    # TODO fill this out
-]
+facebook_data = {
+    tuple([((-122.9260, 38.1086), (-122.9260, 37.4749), (-121.9647, 37.4749), (-121.9647, 38.1086), (-122.9260, 38.1086))]):
+    [('2018-05-01 to 2018-05-03',
+      'San Francisco, departure day',
+      'https://www.facebook.com/photo.php?fbid=10155154109205946'),
+     ('2018-07-19 to 2018-07-22',
+      'San Francisco, wedding',
+      'https://www.facebook.com/mhhalverson/posts/10215173199177064'),
+    ],
 
-for date, place, link, coordinates in facebook_data:
+    tuple([((-111.364628, 32.605047), (-111.364628, 32.048667), (-110.421808, 32.048667), (-110.421808, 32.605047), (-111.364628, 32.605047))]):
+    [('2018-05-03 to 2018-05-06',
+      'Arizona',
+      'https://www.facebook.com/mhhalverson/posts/10214603370971715'),
+    ],
+
+    tuple([((-107.052234, 35.437892), (-106.686764, 32.610222), (-104.714319, 32.064686), (-104.064285, 32.064755), (-104.730264, 34.796961), (-107.052234, 35.437892))]):
+    [('2018-05-06 to 2018-05-09',
+       'New Mexico',
+       'https://www.facebook.com/mhhalverson/posts/10214611861183965'),
+    ],
+
+    tuple([((-98.486359, 33.423138), (-98.486359, 30.071288), (-95.812688, 30.071288), (-95.812688, 33.423138), (-98.486359, 33.423138))]):
+    [('2018-05-09 to 2018-05-14',
+      'Texas',
+      'https://www.facebook.com/mhhalverson/posts/10214647074024264'),
+    ],
+
+    tuple([((-90.994541, 30.981744), (-90.994541, 29.45283), (-89.452761, 29.45283), (-89.452761, 30.981744), (-90.994541, 30.981744))]):
+    [('2018-05-14 to 2018-05-19',
+      'New Orleans',
+      'https://www.facebook.com/mhhalverson/posts/10214686987822084' and 'https://www.facebook.com/photo.php?fbid=10106654355949163&set=a.763822147163.2423144.3204198&type=3&theater'),
+    ],
+
+    tuple([((-82.260209, 28.722341), (-82.260209, 24.345069), (-79.892713, 24.345069), (-79.892713, 28.722341), (-82.260209, 28.722341))]):
+    [('2018-05-19 to 2018-05-25',
+      'Florida',
+      'https://www.facebook.com/mhhalverson/posts/10214716057188800'),
+    ],
+
+    tuple([((-83.449913, 35.048522), (-83.449913, 31.900097), (-80.760202, 31.900097), (-80.760202, 35.048522), (-83.449913, 35.048522))]):
+    [('2018-05-25 to 2018-06-03',
+      'Georgia and South Carolina', 
+      'https://www.facebook.com/mhhalverson/posts/10214783041263360'),
+    ],
+
+    tuple([((-86.291668, 37.933145), (-87.247854, 35.958984), (-86.006265, 35.729173), (-85.446752, 37.154989), (-83.987198, 37.80856), (-84.190357, 38.3527), (-86.291668, 37.933145))]):
+    [('2018-06-03 to 2018-06-07',
+      'Tennessee and Kentucky',
+      'https://www.facebook.com/mhhalverson/posts/10214815490914581'),
+    ],
+
+    tuple([((-83.8477, 35.7822), (-83.3892, 35.1941), (-77.8081, 38.4988), (-78.4233, 38.9103), (-83.8477, 35.7822))]):
+    [('2018-06-07 to 2018-06-11',
+      'Great Smoky Mountains and Shenandoah',
+      'https://www.facebook.com/mhhalverson/posts/10214849564246393'),
+    ],
+
+    tuple([((-77.3218, 39.1258), (-77.3218, 38.7069), (-76.7340, 38.7069), (-76.7340, 39.1258), (-77.3218, 39.1258))]):
+    [('2018-06-11 to 2018-06-15',
+      'Washington DC',
+      'https://www.facebook.com/mhhalverson/posts/10214895582196813'),
+    ],
+
+    tuple([((-122.9260, 45.6716), (-122.9260, 45.2788), (-122.3273, 45.2788), (-122.3273, 45.6716), (-122.9260, 45.6716))]):
+    [('2018-06-15 to 2018-06-18',
+      'Portland part I',
+      'https://www.facebook.com/mhhalverson/posts/10214917720030245'),
+     ('2018-08-08 to 2018-08-20',
+      'Portland part II and NorCal Coast',
+      'https://www.facebook.com/mhhalverson/posts/10215340132510293'),
+    ],
+
+    tuple([((-75.4181, 39.9506), (-75.0666, 39.7060), (-73.6493, 40.7544), (-74.1397, 40.9254), (-75.4181, 39.9506))]):
+    [('2018-06-18 to 2018-06-23',
+      'Philadelphia and New York City',
+      'https://www.facebook.com/mhhalverson/posts/10214961746130870'),
+    ],
+
+    tuple([((-71.8428, 42.6259), (-71.8428, 41.5250), (-70.5542, 41.5250), (-70.5542, 42.6259), (-71.8428, 42.6259))]):
+    [('2018-06-23 to 2018-06-28',
+      'Boston and Rhode Island',
+      'https://www.facebook.com/mhhalverson/posts/10214991754041049'),
+    ],
+
+    tuple([((-68.8843, 44.7779), (-68.8843, 44.0560), (-67.8625, 44.0560), (-67.8625, 44.7779), (-68.8843, 44.7779))]):
+    [('2018-06-28 to 2018-07-01',
+      'Maine',
+      'https://www.facebook.com/mhhalverson/posts/10215024532660494'),
+    ],
+
+    tuple([((-71.8127, 44.8415), (-71.8127, 44.0257), (-71.0327, 44.0257), (-71.0327, 44.8415), (-71.8127, 44.8415))]):
+    [('2018-07-01 to 2018-07-03',
+      'New Hampshire',
+      'https://www.facebook.com/mhhalverson/posts/10215046110919937'),
+    ],
+
+    tuple([((-73.2458, 44.8169), (-76.5198, 43.2132), (-79.2993, 43.2772), (-79.2041, 42.7963), (-81.9946, 41.6246), (-81.6870, 41.3035), (-78.3801, 42.7318), (-76.4355, 42.1806), (-75.8062, 42.7993), (-72.8069, 44.0283), (-72.7844, 44.3710), (-73.2458, 44.8169))]):
+    [('2018-07-03 to 2018-07-07',
+      'Vermont and Upstate NY',
+      'https://www.facebook.com/mhhalverson/posts/10215064045648294'),
+    ],
+
+    tuple([((-84.2651, 42.6824), (-84.2651, 42.0167), (-82.7930, 42.0167), (-82.7930, 42.6824), (-84.2651, 42.6824))]):
+    [('2018-07-07 to 2018-07-11',
+      'Michigan',
+      'https://www.facebook.com/mhhalverson/posts/10215082670073893'),
+    ],
+
+    tuple([((-88.0510, 42.3179), (-88.0510, 41.7549), (-87.2644, 41.7549), (-87.2644, 42.3179), (-88.0510, 42.3179))]):
+    [('2018-07-11 to 2018-07-15',
+      'Chicago',
+      'https://www.facebook.com/mhhalverson/posts/10215136384056709'),
+    ],
+
+    tuple([((-93.7473, 45.2764), (-93.5276, 44.7249), (-91.6269, 44.5372), (-89.4516, 42.8937), (-89.0226, 43.22770), (-91.2968, 44.9711), (-93.7473, 45.2764))]):
+    [('2018-07-15 to 2018-07-19',
+      'Minneapolis',
+      'https://www.facebook.com/mhhalverson/posts/10215155600417106'),
+    ],
+
+    # there's a "San Francisco" entry here that's doubled up with the first entry of this list.
+
+    tuple([((-121.8961, 38.4666), (-121.5720, 38.4752), (-120.8623, 41.0062), (-121.3182, 41.9037), (-121.6972, 41.8996), (-122.4784, 40.4709), (-121.8961, 38.4666))]):
+    [('2018-07-22 to 2018-07-28',
+      'Northeastern California',
+      'https://www.facebook.com/mhhalverson/posts/10215199932285375'),
+    ],
+
+    tuple([((-121.9592, 45.4986), (-121.5637, 45.6832), (-123.6401, 47.6321), (-124.0961, 47.4504), ( -121.9592, 45.4986))]):
+    [('2018-07-28 to 2018-08-02',
+      'Washington part I',
+      'https://www.facebook.com/mhhalverson/posts/10215279409032244'),
+    ],
+
+    tuple([((-121.5258, 48.8304), (-121.9263, 46.6947), (-121.3330, 46.5966), (-120.2124, 48.7707), (-121.5258, 48.8304))]):
+    [('2018-08-02 to 2018-08-08',
+      'Washington part II',
+      'https://www.facebook.com/mhhalverson/posts/10215307816702418'),
+    ],
+
+    tuple([((-122.4613, 43.3003), (-124.4421, 41.9677), (-124.3982, 40.7140), (-123.8269, 40.7473), (-123.1677, 42.1145), (-122.0273, 42.9352), (-122.4613, 43.3003))]):
+    [('2018-08-08 to 2018-08-20',
+      'Portland part II and NorCal Coast', # the Portland polygon also has this entry :)
+      'https://www.facebook.com/mhhalverson/posts/10215340132510293'),
+    ],
+
+    tuple([((-92.2711, 48.2353), (-92.2711, 47.7943), (-88.8873, 47.7943), (-88.8873, 48.2353), (-92.2711, 48.2353))]):
+    [('2018-08-20 to 2018-08-27',
+      'Northern Minnesota',
+      'https://www.facebook.com/mhhalverson/posts/10215397078453906'),
+    ],
+
+    tuple([((-105.1282, 44.7857), (-105.1282, 43.1972), (-101.4587, 43.1972), (-101.4587, 44.7857), (-105.1282, 44.7857))]):
+    [('2018-08-27 to 2018-09-02',
+      'South Dakota',
+      'https://www.facebook.com/mhhalverson/posts/10215497401161911'),
+    ],
+
+    tuple([((-117.7147, 52.4110), (-117.7147, 50.9119), (-115.0999, 50.9119), (-115.0999, 52.4110), (-117.7147, 52.4110))]):
+    [('2018-09-02 to 2018-09-07',
+      'Banff',
+      'https://www.facebook.com/mhhalverson/posts/10215526934940237'),
+    ],
+
+    tuple([((-123.2281, 38.8761), (-123.2281, 38.3395), (-122.3959, 38.3395), (-122.3959, 38.8761), (-123.2281, 38.8761))]):
+    [('2018-09-07 to 2018-09-10',
+      'Santa Rosa',
+      'https://www.facebook.com/mhhalverson/posts/10215559846483005'),
+    ],
+
+    tuple([((-114.0381, 49.1242), (-114.0381, 48.6039), (-113.1152, 48.6039), (-113.1152, 49.1242), (-114.0381, 49.1242))]):
+    [('2018-09-10 to 2018-09-14',
+      'Glacier',
+      'https://www.facebook.com/mhhalverson/posts/10215571606456997'),
+    ],
+
+    tuple([((-111.2476, 44.9181), (-111.2476, 44.3199), (-110.2588, 44.3199), (-110.2588, 44.9181), (-111.2476, 44.9181))]):
+    [('2018-09-14 to 2018-09-20',
+      'Yellowstone',
+      'https://www.facebook.com/mhhalverson/posts/10215583821122356'),
+    ],
+
+    tuple([((-111.2974, 43.8931), (-106.4980, 41.1776), (-105.9082, 40.0276), (-104.5459, 40.0276), (-104.9414, 41.5250), (-110.1654, 43.9731), (-111.2974, 43.8931))]):
+    [('2018-09-20 to 2018-09-26',
+      'Grand Teton and Rocky Mountain',
+      ''), # TODO
+    ],
+
+    # '2018-09-26 to 2018-10-02', 'Mesa Verde and Utah part 1', '', [[]], # TODO
+    # '2018-10-02 to 2018-10-08', 'Utah part 2', '', [[]], # TODO
+    # '2018-10-08 to 2018-10-', '', '', [[]], # TODO
+    # TODO fill this out
+}
+
+for polygon, visits in facebook_data.iteritems():
     gj = folium.GeoJson(data={
         'type': 'Polygon',
-        'coordinates': coordinates,
+        'coordinates': polygon,
     })
-    gj.add_child(folium.Popup('{}<br/>{}<br/><a href={}>link</a>'.format(place, date, link)))
+
+    popups = []
+    for date, place, link in visits:
+        popups.append('{}<br/>{}<br/><a href={}>link</a>'.format(place, date, link))
+
+    gj.add_child(folium.Popup('<br/>'.join(popups)))
     gj.add_to(fg_facebook)
 
-summary_facebook = map(lambda f: f[:3], facebook_data)
+summary_facebook = []
+for _, visits in facebook_data.iteritems():
+    summary_facebook.extend(visits)
+summary_facebook = sorted(list(set(summary_facebook)))
 
 # 12 Memorable meals
 fg_meal = FeatureGroup(name='Memorable meals', show=False)
