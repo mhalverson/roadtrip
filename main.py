@@ -827,3 +827,8 @@ executive_summary = [('Total days on the road', summary[SUMMARY_DAYS_TOTAL]),
  ),
  ('Number of books read', len(SUMMARY_BOOKS_READ)),
 ]
+
+if __name__=='__main__':
+    import sys
+    filename = sys.argv[1]
+    m.save(filename)
