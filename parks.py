@@ -108,7 +108,7 @@ parks = {}
 for p, data in park_data.iteritems():
     # coerce to shapely geometries from https://medium.com/@pramukta/recipe-importing-geojson-into-shapely-da1edf79f41d
     if isinstance(data, str):
-        with open('../data/base_data/boundaries/parks/{}.geojson'.format(data)) as f:
+        with open('./data/base_data/boundaries/parks/{}.geojson'.format(data)) as f:
             geom = json.load(f)["geometry"]
             # Special handling -- the parks dataset handles MultiPolygons
             # incorrectly. Instead of handling them as separate 'islands', it

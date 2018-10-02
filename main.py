@@ -181,7 +181,7 @@ fg_state.add_to(m)
 
 # Load states data from folium itself o_O A bit weird, but if it's there... why not?
 states = None
-with open("../folium/examples/data/us-states.json") as f:
+with open("./folium/examples/data/us-states.json") as f:
     states = json.load(f)["features"]
 
 # add abbreviation as a property!
