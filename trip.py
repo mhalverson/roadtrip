@@ -1400,11 +1400,47 @@ trip = [
         DAY_PARKS: ['Mesa Verde NP', 'Arches NP'],
         DAY_OTHER: [('Saw license plates from all 50 states: lap #5 (Delaware)', (38.687153, -109.536785))],
     },
+    {
+        DAY_DATE: date(2018,9,29),
+        DAY_WAYPOINTS: [(38.675294, -109.688530)],
+        DAY_COORD: coords.canyonlands,
+        DAY_COORD_LABEL: 'Canyonlands',
+        DAY_COORD_TYPE: DAY_COORD_CAMPING,
+        DAY_MILES: 77,
+        DAY_HOURS: 2,
+        DAY_PARKS: ['Arches NP', 'Canyonlands NP'],
+    },
+    {
+        DAY_DATE: date(2018,9,30),
+        DAY_COORD: coords.canyonlands,
+        DAY_PARKS: ['Canyonlands NP'],
+        DAY_OTHER: [("High winds broke the tent's guy-line", coords.canyonlands)],
+    },
+    {
+        DAY_DATE: date(2018,10,1),
+        DAY_WAYPOINTS: [(38.675294, -109.688530), (38.947304, -109.817526), (38.918877, -110.379948), (38.372346, -110.706286), (38.327759, -111.023156), (38.266297, -111.085504), (38.520320, -111.881095), (37.692620, -112.152270), coords.rainbow_point, (37.692620, -112.152270)],
+        DAY_COORD: coords.bryce,
+        DAY_COORD_LABEL: 'Bryce',
+        DAY_COORD_TYPE: DAY_COORD_CITY,
+        DAY_MILES: 288,
+        DAY_HOURS: 4.5,
+        DAY_PARKS: ['Canyonlands NP', 'Bryce Canyon NP'],
+        DAY_GOT_HIGH: [('Rainbow Point', 9115, coords.rainbow_point)],
+    },
+    {
+        DAY_DATE: date(2018,10,2),
+        DAY_COORD: coords.bryce,
+        DAY_OTHER: [("We didn't leave the hotel and it was glorious", coords.bryce)],
+    },
+    {
+        DAY_DATE: date(2018,10,3),
+        DAY_COORD: coords.bryce,
+    },
 ]
 
 '''
     {
-        DAY_DATE: date(2018,9,),
+        DAY_DATE: date(2018,10,),
         DAY_WAYPOINTS: [(0,0)],
         DAY_COORD: (0, 0),
         DAY_COORD_LABEL: 'Tucson',
