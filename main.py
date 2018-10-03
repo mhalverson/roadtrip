@@ -22,7 +22,6 @@ from trip import trip
 #
 # . clean up the route line in Portland, Acadia, Shenandoah, Quinault
 # . figure out how to incorporate books into summary
-# . put favourte (+least) nature/city into summary
 #
 # . figure out icons
 # . grep for other TODOs
@@ -281,49 +280,7 @@ for p, date_ranges in summary_park.iteritems():
 
 summary_tables[fg_park_name] = sorted([(collapse_date_ranges(v), k) for k, v in summary_park.iteritems()])
 
-# 5 Superlative cities # TODO revisit when done
-fg_superlative_cities_name = 'Favourite (+least) city'
-fg_superlative_cities = FeatureGroup(name=fg_superlative_cities_name, show=False)
-fg_superlative_cities.add_to(m)
-
-superlative_cities_data = [
-    ('2018-06-11 to 2018-06-15', 'Favorite for Matt: DC', coords.dc),
-    ('2018-07-11 to 2018-07-15', 'Favorite for Claire: Chicago', coords.chicago),
-    ('2018-05-29 to 2018-06-01', 'Least favorite for Matt: Augusta', coords.north_augusta),
-    ('2018-05-09 to 2018-05-12', 'Least favorite for Claire: Dallas', (32.783057, -96.798872)),
-]
-
-for dates, desc, coord in superlative_cities_data:
-    Marker(
-        location=coord,
-        # TODO custom icon
-        popup=html_escape([desc, dates]),
-    ).add_to(fg_superlative_cities)
-
-summary_superlative_city = map(lambda x: x[:2], superlative_cities_data)
-summary_tables[fg_superlative_cities_name] = summary_superlative_city
-
-# 6 Superlative nature # TODO revisit when done
-fg_superlative_nature_name = 'Favourite (+least) nature'
-fg_superlative_nature = FeatureGroup(name=fg_superlative_nature_name, show=False)
-fg_superlative_nature.add_to(m)
-
-superlative_nature_data = [
-    ('2018-09-02 to 2018-09-07', 'Favorite for Matt and Claire', 'Banff NP'),
-    ('2018-05-27 to 2018-05-29', 'Least favorite for Matt and Claire', 'Congaree NP'),
-]
-
-for dates, desc, park in superlative_nature_data:
-    popup = html_escape(['{}: {}'.format(desc, park), dates])
-    add_park(park, popup, fg_superlative_nature)
-
-summary_superlative_nature = map(
-    lambda x: (x[0], '{}: {}'.format(x[1], x[2])),
-    superlative_nature_data,
-)
-summary_tables[fg_superlative_nature_name] = summary_superlative_nature
-
-# 7 Animal sightings
+# 5 Animal sightings
 fg_animal_name = 'Animal sightings'
 fg_animal = FeatureGroup(name=fg_animal_name, show=False)
 fg_animal.add_to(m)
@@ -357,7 +314,7 @@ for park, animal_data in park_to_animal.iteritems():
 
 summary_tables[fg_animal_name] = sorted(summary_animal)
 
-# 8 Mountains climbed aka getting high
+# 6 Mountains climbed aka getting high
 fg_got_high_name = 'High elevations'
 fg_got_high = FeatureGroup(name=fg_got_high_name, show=False)
 fg_got_high.add_to(m)
@@ -382,7 +339,7 @@ for day in trip:
 
 summary_tables[fg_got_high_name] = summary_got_high
 
-# 9 Extreme points NSEW
+# 7 Extreme points NSEW
 fg_extreme_nsew_name = 'Extreme points north/south/east/west'
 fg_extreme_nsew = FeatureGroup(name=fg_extreme_nsew_name, show=False)
 fg_extreme_nsew.add_to(m)
@@ -407,7 +364,7 @@ summary_extreme_nsew = map(
 )
 summary_tables[fg_extreme_nsew_name] = summary_extreme_nsew
 
-# 10 Facebook posts
+# 8 Facebook posts
 fg_facebook_name = 'Facebook posts'
 fg_facebook = FeatureGroup(name=fg_facebook_name, show=False)
 fg_facebook.add_to(m)
@@ -627,7 +584,7 @@ summary_facebook = sorted(list(set(summary_facebook)))
 
 summary_tables[fg_facebook_name] = summary_facebook
 
-# 11 Memorable meals
+# 9 Memorable meals
 fg_meal_name = 'Memorable meals'
 fg_meal = FeatureGroup(name=fg_meal_name, show=False)
 fg_meal.add_to(m)
@@ -656,7 +613,7 @@ for coord, meal_data in coord_to_meals.iteritems():
 
 summary_tables[fg_meal_name] = summary_meal
 
-# 12 Pies
+# 10 Pies
 fg_pie_name = 'Pies baked'
 fg_pie = FeatureGroup(name=fg_pie_name, show=False)
 fg_pie.add_to(m)
@@ -677,7 +634,7 @@ for i, day in enumerate(trip):
 
 summary_tables[fg_pie_name] = summary_pie
 
-# 13 Tiki bars
+# 11 Tiki bars
 fg_tiki_name = 'Tiki bars'
 fg_tiki = FeatureGroup(name=fg_tiki_name, show=False)
 fg_tiki.add_to(m)
@@ -697,7 +654,7 @@ for day in trip:
  
 summary_tables[fg_tiki_name] = summary_tiki
 
-# 14 Weddings
+# 12 Weddings
 fg_wedding_name = 'Weddings'
 fg_wedding = FeatureGroup(name=fg_wedding_name, show=False)
 fg_wedding.add_to(m)
@@ -719,7 +676,7 @@ for day in trip:
 
 summary_tables[fg_wedding_name] = summary_wedding
 
-# 16 Other notable events
+# 14 Other notable events
 fg_other_name = 'Other notable events'
 fg_other = FeatureGroup(name=fg_other_name, show=False)
 fg_other.add_to(m)
@@ -757,6 +714,10 @@ executive_summary = [
  ('Lowest elevation', '{} from 2018-05-14 to 2018-05-19 in New Orleans'.format(format_elevation(-4))),
  ('Highest temperature', '100F/38C on 2018-05-05 in Tucson'),
  ('Lowest temperature', '26F/-3C on 2018-09-26 in Rocky Mountain NP'),
+ ('Favourite city', 'Chicago for Claire, DC for Matt'),
+ ('Least favourite city', 'Dallas for Claire, Augusta for Matt'),
+ ('Favourite nature', 'Banff NP for both of us'),
+ ('Least favourite nature', 'Congaree NP for both of us'),
  ('Tanks of gas', str(31 + #before MN
                       11 + #west coast leg
                       0)),  #TODO after MN
