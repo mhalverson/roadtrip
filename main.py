@@ -291,7 +291,7 @@ def add_park(park, popup, feature_group, icon):
     geom_raw = parks[park]
 
     gc_raw = GeometryCollection([shape(geom_raw)])
-    gc_simple = GeometryCollection.simplify(gc_raw, 0.01) # TODO 0.01 is made up from thin air, what should it really be?
+    gc_simple = GeometryCollection.simplify(gc_raw, 0.01) # I *think* the tolerance units are in degrees latitude/longitude
 
     geojson_simple = GeoJson(mapping(gc_simple))
     geojson_simple.add_to(feature_group)
