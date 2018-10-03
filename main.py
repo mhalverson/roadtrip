@@ -46,6 +46,8 @@ SUMMARY_DAYS_CAMPING = 'days_camping'
 SUMMARY_DAYS_CITY = 'days_city'
 SUMMARY_MILES = 'miles'
 SUMMARY_HOURS = 'hours'
+SUMMARY_LONGEST_DAY_MILES = 'longest_day_miles'
+SUMMARY_LONGEST_DAY_HOURS = 'longest_day_hours'
 
 
 ### BEGINNING OF FEATURE GROUPS
@@ -113,9 +115,15 @@ for i, day in enumerate(trip):
     sleep_dates[sleep_coord].append(day[DAY_DATE])
     summary_ints[SUMMARY_DAYS_TOTAL] += 1
     if DAY_MILES in day:
-        summary_ints[SUMMARY_MILES] += day[DAY_MILES]
+        miles = day[DAY_MILES]
+        summary_ints[SUMMARY_MILES] += miles
+        if miles > summary_ints[SUMMARY_LONGEST_DAY_MILES]:
+            summary_ints[SUMMARY_LONGEST_DAY_MILES] = miles
     if DAY_HOURS in day:
-        summary_ints[SUMMARY_HOURS] += day[DAY_HOURS]
+        hours = day[DAY_HOURS]
+        summary_ints[SUMMARY_HOURS] += hours
+        if hours > summary_ints[SUMMARY_LONGEST_DAY_HOURS]:
+            summary_ints[SUMMARY_LONGEST_DAY_HOURS] = hours
 
 summary_sleep = [] # list of (collapsed date range, place)
 
@@ -704,12 +712,15 @@ summary_tables[fg_other_name] = summary_other
 LayerControl().add_to(m)
 
 # Summary generation
-executive_summary = [
+executive_summary = [ # TODO revisit when done
  ('Total days on the road', str(summary_ints[SUMMARY_DAYS_TOTAL])),
  ('Days of camping', str(summary_ints[SUMMARY_DAYS_CAMPING])),
  ('Days in cities', str(summary_ints[SUMMARY_DAYS_CITY])),
  ('Total miles of driving', str(summary_ints[SUMMARY_MILES])),
  ('Total hours of driving', str(summary_ints[SUMMARY_HOURS])),
+ ('Longest driving day', '{} miles / {} hours'.format(
+     summary_ints[SUMMARY_LONGEST_DAY_MILES],
+     summary_ints[SUMMARY_LONGEST_DAY_HOURS])),
  ('Highest elevation', '{} on 2018-09-24 on Trail Ridge Road Summit in Rocky Mountain NP'.format(format_elevation(12183))),
  ('Lowest elevation', '{} from 2018-05-14 to 2018-05-19 in New Orleans'.format(format_elevation(-4))),
  ('Highest temperature', '100F/38C on 2018-05-05 in Tucson'),
