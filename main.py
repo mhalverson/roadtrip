@@ -21,7 +21,8 @@ from trip import trip
 # . populate TRIP! and other summary data (including facebook posts)
 #
 # . clean up the route line in Portland, Acadia, Shenandoah, Quinault
-# . remove the sub feature groups of fg_sleep camp vs city -- they can still have different icons, but don't display them as toggleable layers
+# . figure out how to incorporate books into summary
+# . put favourte (+least) nature/city into summary
 #
 # . figure out icons
 # . grep for other TODOs
@@ -80,18 +81,10 @@ for i, day in enumerate(trip):
         popup='{}'.format(day[DAY_DATE]),
     ).add_to(fg_route)
 
-# 1 Sleep - subgroups for camping vs city
-# Subgroup docs: https://github.com/python-visualization/folium/issues/475
-fg_sleep_name = 'Where we slept'
-fg_sleep = FeatureGroup(name=fg_sleep_name, show=True)
+# 1 Sleep
+fg_sleep_name = 'Where we slept (camping in green, cities in blue)'
+fg_sleep = FeatureGroup(name=fg_sleep_name, show=False)
 fg_sleep.add_to(m)
-
-fg_sleep_subgroup_camping = plugins.FeatureGroupSubGroup(fg_sleep, '(Where we slept): camping')
-m.add_child(fg_sleep_subgroup_camping)
-fg_sleep_subgroup_city = plugins.FeatureGroupSubGroup(fg_sleep, '(Where we slept): cities')
-m.add_child(fg_sleep_subgroup_city)
-
-summary_sleep = [] # list of (collapsed date range, place)
 
 # escape() and unescape() takes care of &, < and >.
 html_escape_table = {
@@ -104,7 +97,7 @@ def html_escape(strings, sep='<br/>'):
     escaped = map(lambda s: escape(s, html_escape_table), formatted)
     return sep.join(escaped)
 
-sleep_markers = {} # key is latlng, value is (coord_label, coord_type, icon, subgroup)
+sleep_markers = {} # key is latlng, value is (coord_label, coord_type, icon)
 sleep_dates = defaultdict(list)  # key is latlng, value is list of dates we were there
 
 for i, day in enumerate(trip):
@@ -116,12 +109,8 @@ for i, day in enumerate(trip):
             DAY_COORD_CAMPING: folium.Icon(icon=ICON_CAMPING, color=COLOR_CAMPING),
             DAY_COORD_CITY: folium.Icon(icon=ICON_CITY, color=COLOR_CITY),
         }[coord_type]
-        subgroup = {
-            DAY_COORD_CAMPING: fg_sleep_subgroup_camping,
-            DAY_COORD_CITY: fg_sleep_subgroup_city,
-        }[coord_type]
         
-        sleep_markers[sleep_coord] = (coord_label, coord_type, icon, subgroup)
+        sleep_markers[sleep_coord] = (coord_label, coord_type, icon)
     sleep_dates[sleep_coord].append(day[DAY_DATE])
     summary_ints[SUMMARY_DAYS_TOTAL] += 1
     if DAY_MILES in day:
@@ -129,14 +118,16 @@ for i, day in enumerate(trip):
     if DAY_HOURS in day:
         summary_ints[SUMMARY_HOURS] += day[DAY_HOURS]
 
+summary_sleep = [] # list of (collapsed date range, place)
+
 for sleep_coord, dates in sleep_dates.iteritems():
-    (coord_label, coord_type, icon, subgroup) = sleep_markers[sleep_coord]      
+    (coord_label, coord_type, icon) = sleep_markers[sleep_coord]
     popup = '{}<br/>{}'.format(coord_label, collapse_date_ranges(dates, sep='<br/>'))
     Marker(
         location=sleep_coord,
         popup=folium.Popup(popup),
         icon=icon,
-    ).add_to(subgroup)
+    ).add_to(fg_sleep)
     
     for first, last in break_into_ranges(dates):
         date_range = format_date_range(first, last)
