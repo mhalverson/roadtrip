@@ -22,7 +22,6 @@ from trip import trip
 #
 # . clean up the route line in Portland, Acadia, Shenandoah, Quinault
 # . remove the sub feature groups of fg_sleep camp vs city -- they can still have different icons, but don't display them as toggleable layers
-# . put high/low elevation and temperature into the executive summary instead of as feature groups / layers
 #
 # . figure out icons
 # . grep for other TODOs
@@ -374,12 +373,15 @@ fg_got_high.add_to(m)
 
 summary_got_high = []
 
+def format_elevation(height_ft):
+    height_m = int(height_ft * 0.3048)
+    return '{} ft/{} m'.format(height_ft, height_m)
+
 for day in trip:
     if DAY_GOT_HIGH in day:
         date = day[DAY_DATE]
         for (place, height_ft, coord) in day[DAY_GOT_HIGH]:
-            height_m = int(height_ft * 0.3048)
-            height_str = '{} ft/{} m'.format(height_ft, height_m)
+            height_str = format_elevation(height_ft)
             Marker(
                 location=coord,
                 # TODO custom icon
@@ -726,44 +728,7 @@ for day in trip:
 
 summary_tables[fg_wedding_name] = summary_wedding
 
-# 15 Highest/lowest elevation
-fg_elevation = FeatureGroup(name='Highest/lowest elevation', show=False)
-fg_elevation.add_to(m)
-
-elevation_data = [
-    ('2018-09-24', 'Trail Ridge Road Summit', 12183, coords.trail_ridge_road_summit),
-    ('2018-05-14 to 2018-05-19', 'New Orleans', -4, coords.nola),
-]
-
-for date, place, elev, coord in elevation_data:
-    Marker(
-        location=coord,
-        # TODO custom icon
-        popup=html_escape([place, '{} ft'.format(elev), date]),
-    ).add_to(fg_elevation)
-
-summary_elevation = map(lambda w: w[:3], elevation_data)
-
-# 16 Highest/lowest temperature
-fg_temperature = FeatureGroup(name='Highest/lowest temperature', show=False)
-fg_temperature.add_to(m)
-
-temperature_data = [
-    # TODO revisit at end for the actual high/low
-    ('2018-05-05', 'Tucson', '100F/38C', coords.tucson),
-    ('2018-09-03', 'Banff', '33F/1C', coords.two_jack)
-]
-
-for date, place, temp, coord in temperature_data:
-    Marker(
-        location=coord,
-        # TODO custom icon
-        popup=html_escape([place, temp, date]),
-    ).add_to(fg_temperature)
-
-summary_temperature = map(lambda w: w[:3], temperature_data)
-
-# 18 Other notable events
+# 16 Other notable events
 fg_other_name = 'Other notable events'
 fg_other = FeatureGroup(name=fg_other_name, show=False)
 fg_other.add_to(m)
@@ -797,6 +762,10 @@ executive_summary = [
  ('Days in cities', str(summary_ints[SUMMARY_DAYS_CITY])),
  ('Total miles of driving', str(summary_ints[SUMMARY_MILES])),
  ('Total hours of driving', str(summary_ints[SUMMARY_HOURS])),
+ ('Highest elevation', '{} on 2018-09-24 on Trail Ridge Road Summit in Rocky Mountain NP'.format(format_elevation(12183))),
+ ('Lowest elevation', '{} from 2018-05-14 to 2018-05-19 in New Orleans'.format(format_elevation(-4))),
+ ('Highest temperature', '100F/38C on 2018-05-05 in Tucson'),
+ ('Lowest temperature', '26F/-3C on 2018-09-26 in Rocky Mountain NP'),
  ('Tanks of gas', str(31 + #before MN
                       11 + #west coast leg
                       0)),  #TODO after MN
