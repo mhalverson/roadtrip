@@ -344,7 +344,6 @@ trip = [
     },
     {
         DAY_DATE: date(2018,6,10),
-        DAY_WAYPOINTS: [(38.667338, -78.319074), (38.650482, -78.213130), (38.544839, -78.242732), (38.570363, -78.286417), (38.544839, -78.242732), (38.650482, -78.213130), (38.667338, -78.319074)],
         DAY_COORD: coords.shenandoah,
         DAY_MILES: 79,
         DAY_HOURS: 2.25,
@@ -397,8 +396,7 @@ trip = [
         DAY_FRIENDS: {'Derek and Marisa': coords.portland,
                       'Laura and Austin': coords.portland,
                       'Jack and Emilie': coords.portland,
-                      'Jones': coords.portland,
-                      'Georgia, Reid, Sus, Olin, Sarah and Cam': coords.portland},
+                      'Georgia, Reid, Sus, Olin, Sarah and Cam, Jones': coords.portland},
         DAY_WEDDING: ('Georgia and Eric', (45.550298, -122.685695)),
     },
     {
@@ -455,7 +453,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,6,23),
-        DAY_WAYPOINTS: [(41.108643, -73.670943), (41.252613, -73.049129), (41.748156, -72.659509), (42.139693, -72.069508)],
+        DAY_WAYPOINTS: [(41.108643, -73.670943), (41.252613, -73.049129), (41.748156, -72.659509), (42.139693, -72.069508), coords.wellesley],
         DAY_COORD: coords.boston,
         DAY_COORD_LABEL: 'Boston',
         DAY_COORD_TYPE: DAY_COORD_CITY,
@@ -480,7 +478,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,6,26),
-        DAY_WAYPOINTS: [coords.providence],
+        DAY_WAYPOINTS: [coords.wellesley, coords.providence],
         DAY_COORD: coords.wellesley,
         DAY_COORD_LABEL: 'Wellesley',
         DAY_COORD_TYPE: DAY_COORD_CITY,
@@ -499,8 +497,8 @@ trip = [
     },
     {
         DAY_DATE: date(2018,6,28),
-        DAY_WAYPOINTS: [(42.995807, -70.832844), (44.842881, -69.418467)],
-        DAY_COORD: (44.490835, -68.373582),
+        DAY_WAYPOINTS: [(42.995807, -70.832844), coords.palmyra, coords.bangor, coords.ellsworth],
+        DAY_COORD: coords.acadia_gateway_motel,
         DAY_COORD_LABEL: 'Acadia Gateway Motel',
         DAY_COORD_TYPE: DAY_COORD_CITY,
         DAY_MILES: 279,
@@ -519,7 +517,6 @@ trip = [
     },
     {
         DAY_DATE: date(2018,6,30),
-        DAY_WAYPOINTS: [(44.263241, -68.396566), (44.341535, -68.401704), (44.401434, -68.338799), (44.380314, -68.231648), (44.360504, -68.188037), (44.297984, -68.211836), (44.320279, -68.252773), (44.376486, -68.242491), (44.359408, -68.335737)],
         DAY_COORD: coords.acadia,
         DAY_PARKS: ['Acadia NP'],
         DAY_GOT_HIGH: [('The Beehive', 520, (44.333394, -68.188361)),
@@ -527,7 +524,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,7,1),
-        DAY_WAYPOINTS: [(44.793955, -68.629766), (44.833188, -69.421365), coords.gorham, (44.280194, -71.228995), coords.mt_washington, (44.280194, -71.228995), coords.gorham,],
+        DAY_WAYPOINTS: [coords.acadia_gateway_motel, coords.ellsworth, coords.bangor, coords.palmyra, coords.gorham, (44.280194, -71.228995), coords.mt_washington, (44.280194, -71.228995), coords.gorham,],
         DAY_COORD: coords.milan_hill,
         DAY_COORD_LABEL: 'Milan Hill SP',
         DAY_COORD_TYPE: DAY_COORD_CAMPING,
@@ -778,7 +775,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,7,28),
-        DAY_WAYPOINTS: [(43.331515, -121.757079), (44.022525, -123.072701)],
+        DAY_WAYPOINTS: [coords.chemult, coords.eugene, coords.salem],
         DAY_COORD: coords.portland,
         DAY_COORD_LABEL: 'Portland',
         DAY_COORD_TYPE: DAY_COORD_CITY,
@@ -821,7 +818,6 @@ trip = [
     },
     {
         DAY_DATE: date(2018,8,1),
-        DAY_WAYPOINTS: [(47.501910, -123.781564), (47.526326, -123.765148), (47.531591, -123.677405), (47.536856, -123.678365), (47.535717, -123.761219), (47.469342, -123.923109), (47.457686, -123.904730), (47.454964, -123.866874)],
         DAY_COORD: coords.quinault,
         DAY_MILES: 30,
         DAY_HOURS: 1,
@@ -919,7 +915,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,8,11),
-        DAY_WAYPOINTS: [(45.028504, -123.054898), (44.005448, -123.055546), (43.338792, -121.724381), (43.070174, -121.825557), (43.085168, -122.310228)],
+        DAY_WAYPOINTS: [coords.salem, coords.eugene, coords.chemult, (43.070174, -121.825557), (43.085168, -122.310228)],
         DAY_COORD: (42.683875, -122.619410),
         DAY_COORD_LABEL: 'Joseph H. Stewart State Recreation Area',
         DAY_COORD_TYPE: DAY_COORD_CAMPING,
@@ -964,7 +960,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,8,16),
-        DAY_WAYPOINTS: [(40.625456, -124.221110)],
+        DAY_WAYPOINTS: [(40.625456, -124.221110), coords.santa_rosa],
         DAY_COORD: coords.sf,
         DAY_MILES: 279,
         DAY_HOURS: 5,
@@ -1188,7 +1184,7 @@ trip = [
     },
     {
         DAY_DATE: date(2018,9,9),
-        DAY_COORD: coords.sf_alex_b,
+        DAY_COORD: coords.sf,
         DAY_COORD_LABEL: 'San Francisco',
         DAY_COORD_TYPE: DAY_COORD_CITY,
         DAY_MILES: 65,

@@ -19,10 +19,7 @@ from trip import trip
 # next steps --
 #
 # . populate TRIP! and other summary data (including facebook posts)
-#
-# . clean up the route line in Portland, Acadia, Shenandoah, Quinault
-#
-# . grep for other TODOs
+# . any other TODOs
 
 PREFIX_FONT_AWESOME = 'fa'
 
@@ -743,7 +740,7 @@ executive_summary = [ # TODO revisit when done
  ('Total days on the road', str(summary_ints[SUMMARY_DAYS_TOTAL])),
  ('Days of camping', str(summary_ints[SUMMARY_DAYS_CAMPING])),
  ('Days in cities', str(summary_ints[SUMMARY_DAYS_CITY])),
- ('Total miles of driving', str(summary_ints[SUMMARY_MILES])),
+ ('Total miles of driving', str(summary_ints[SUMMARY_MILES])), # TODO compare this to the gas logs from van + Elantra
  ('Total hours of driving', str(summary_ints[SUMMARY_HOURS])),
  ('Longest driving day', '{} miles / {} hours'.format(
      summary_ints[SUMMARY_LONGEST_DAY_MILES],
