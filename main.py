@@ -21,22 +21,43 @@ from trip import trip
 # . populate TRIP! and other summary data (including facebook posts)
 #
 # . clean up the route line in Portland, Acadia, Shenandoah, Quinault
-# . figure out how to incorporate books into summary
 #
-# . figure out icons
 # . grep for other TODOs
 
-ICON_CAMPING = 'chevron-up'
+PREFIX_FONT_AWESOME = 'fa'
+
+ICON_CAMPING = 'eject'
 COLOR_CAMPING = 'green'
 ICON_CITY = 'home'
 COLOR_CITY = 'blue'
 ICON_FRIEND = 'user'
 COLOR_FRIEND = 'orange'
-ICON_PARK = 'tree' # TODO this isn't a real icon
-COLOR_PARK = 'green'
-ICON_STATE = 'state' # TODO
+# no icon needed for states
 COLOR_STATE_VISITED = 'green'
-COLOR_STATE_NOT_VISITED = 'red'
+COLOR_STATE_NOT_VISITED = 'yellow'
+ICON_PARK = 'tree'
+COLOR_PARK = 'green'
+PREFIX_PARK = PREFIX_FONT_AWESOME
+ICON_ANIMAL = 'binoculars'
+COLOR_ANIMAL = 'gray'
+PREFIX_ANIMAL = PREFIX_FONT_AWESOME
+ICON_GOT_HIGH = 'chevron-up'
+COLOR_GOT_HIGH = 'lightgray'
+ICON_NSEW = 'compass'
+COLOR_NSEW = 'blue'
+PREFIX_NSEW = PREFIX_FONT_AWESOME
+# no icon needed for Facebook posts
+ICON_MEAL = 'cutlery'
+COLOR_MEAL = 'orange'
+ICON_PIE = 'pie-chart'
+COLOR_PIE = 'green'
+PREFIX_PIE = PREFIX_FONT_AWESOME
+ICON_TIKI = 'glass'
+COLOR_TIKI = 'blue'
+ICON_WEDDING = 'heart'
+COLOR_WEDDING = 'pink'
+ICON_OTHER = 'exclamation-sign'
+COLOR_OTHER = 'cadetblue'
 
 summary_tables = {}
 
@@ -246,7 +267,7 @@ for s in states:
     gj = folium.GeoJson(
         s,
         style_function=lambda feature: {
-            'fillColor': 'green' if visited(feature['properties']['abbrev']) else '#ffff00',
+            'fillColor': COLOR_STATE_VISITED if visited(feature['properties']['abbrev']) else COLOR_STATE_NOT_VISITED,
         },
     )
     gj.add_child(Popup(popup))
@@ -266,7 +287,7 @@ for day in trip:
         for p in day[DAY_PARKS]:
             summary_park[p].append(day[DAY_DATE])
 
-def add_park(park, popup, feature_group):
+def add_park(park, popup, feature_group, icon):
     geom_raw = parks[park]
 
     gc_raw = GeometryCollection([shape(geom_raw)])
@@ -279,12 +300,14 @@ def add_park(park, popup, feature_group):
     Marker(
         location=(centroid.y, centroid.x),
         popup=popup,
+        icon=icon,
     ).add_to(feature_group)
 
 for p, date_ranges in summary_park.iteritems():
     date_range = collapse_date_ranges(date_ranges)
     popup = html_escape([p, date_range])
-    add_park(p, popup, fg_park)
+    icon = folium.Icon(icon=ICON_PARK, prefix=PREFIX_PARK, color=COLOR_PARK)
+    add_park(p, popup, fg_park, icon)
 
 summary_tables[fg_park_name] = sorted([(collapse_date_ranges(v), k) for k, v in summary_park.iteritems()])
 
@@ -318,7 +341,8 @@ for park, animal_data in park_to_animal.iteritems():
     popup_lines.append('in {}'.format(park))
 
     popup = html_escape(popup_lines)
-    add_park(park, popup, fg_animal)
+    icon = folium.Icon(icon=ICON_ANIMAL, prefix=PREFIX_ANIMAL, color=COLOR_ANIMAL)
+    add_park(park, popup, fg_animal, icon)
 
 summary_tables[fg_animal_name] = sorted(summary_animal)
 
@@ -340,8 +364,8 @@ for day in trip:
             height_str = format_elevation(height_ft)
             Marker(
                 location=coord,
-                # TODO custom icon
                 popup=html_escape([place, height_str, date]),
+                icon=folium.Icon(icon=ICON_GOT_HIGH, color=COLOR_GOT_HIGH),
             ).add_to(fg_got_high)
             summary_got_high.append((format_date(date), place, height_str))
 
@@ -362,7 +386,7 @@ extreme_nsew_data = [
 for direction, date, place, coord in extreme_nsew_data:
     Marker(
         location=coord,
-        # TODO custom icon
+        icon=folium.Icon(icon=ICON_NSEW, prefix=PREFIX_NSEW, color=COLOR_NSEW),
         popup=html_escape([direction, place, coord, date]),
     ).add_to(fg_extreme_nsew)
 
@@ -615,7 +639,7 @@ for coord, meal_data in coord_to_meals.iteritems():
     popup = folium.Popup(html_escape(popup_elems))
     Marker(
         location=coord,
-        # TODO custom icon
+        icon=folium.Icon(icon=ICON_MEAL, color=COLOR_MEAL),
         popup=popup,
     ).add_to(fg_meal)
 
@@ -635,7 +659,7 @@ for i, day in enumerate(trip):
         coord = day[DAY_COORD]
         Marker(
             location=coord,
-            # TODO custom icon
+            icon=folium.Icon(icon=ICON_PIE, prefix=PREFIX_PIE, color=COLOR_PIE),
             popup=html_escape(['{} pie'.format(pie), 'for {}'.format(recipient), date]),
         ).add_to(fg_pie)
         summary_pie.append((format_date(date), '{} pie for {}'.format(pie, recipient)))
@@ -655,7 +679,7 @@ for day in trip:
         bar, coord = day[DAY_TIKI]
         Marker(
             location=coord,
-            # TODO custom icon
+            icon=folium.Icon(icon=ICON_TIKI, color=COLOR_TIKI),
             popup=html_escape([bar, date]),
         ).add_to(fg_tiki)
         summary_tiki.append((format_date(date), bar))
@@ -676,7 +700,7 @@ for day in trip:
         
         Marker(
             location=coord,
-            # TODO custom icon
+            icon=folium.Icon(icon=ICON_WEDDING, color=COLOR_WEDDING),
             popup=html_escape([couple, date]),
         ).add_to(fg_wedding)
 
@@ -698,7 +722,7 @@ for day in trip:
         
             Marker(
                 location=coord,
-                # TODO custom icon
+                icon=folium.Icon(icon=ICON_OTHER, color=COLOR_OTHER),
                 popup=html_escape([event, date]),
             ).add_to(fg_other)
 
