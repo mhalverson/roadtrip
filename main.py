@@ -22,7 +22,6 @@ from trip import trip
 #
 # . clean up the route line in Portland, Acadia, Shenandoah, Quinault
 # . remove the sub feature groups of fg_sleep camp vs city -- they can still have different icons, but don't display them as toggleable layers
-# . remove fg_swim, fg_cave
 # . put high/low elevation and temperature into the executive summary instead of as feature groups / layers
 #
 # . figure out icons
@@ -390,36 +389,7 @@ for day in trip:
 
 summary_tables[fg_got_high_name] = summary_got_high
 
-# 9 Swimming
-fg_swim_name = 'Places we swam'
-fg_swim = FeatureGroup(name=fg_swim_name, show=False)
-fg_swim.add_to(m)
-
-swim_to_dates = defaultdict(list)  # key is (place name, latlng), value is list of dates
-
-for day in trip:
-    if DAY_SWIM in day:
-        swim_data = day[DAY_SWIM]
-        date = day[DAY_DATE]
-        swim_to_dates[swim_data].append(date)
-
-summary_swim = []
-
-for swim_data, dates in swim_to_dates.iteritems():
-    (place, coord) = swim_data
-    
-    popup = '{}<br/>{}'.format(place, collapse_date_ranges(dates, sep='<br/>', inner_sep=' and '))
-    Marker(
-        location=coord,
-        # TODO custom icon
-        popup=popup,
-    ).add_to(fg_swim)
-    
-    summary_swim.append((place, collapse_date_ranges(dates)))
-
-summary_tables[fg_swim_name] = summary_swim
-
-# 10 Extreme points NSEW
+# 9 Extreme points NSEW
 fg_extreme_nsew_name = 'Extreme points north/south/east/west'
 fg_extreme_nsew = FeatureGroup(name=fg_extreme_nsew_name, show=False)
 fg_extreme_nsew.add_to(m)
@@ -444,7 +414,7 @@ summary_extreme_nsew = map(
 )
 summary_tables[fg_extreme_nsew_name] = summary_extreme_nsew
 
-# 11 Facebook posts
+# 10 Facebook posts
 fg_facebook_name = 'Facebook posts'
 fg_facebook = FeatureGroup(name=fg_facebook_name, show=False)
 fg_facebook.add_to(m)
@@ -664,7 +634,7 @@ summary_facebook = sorted(list(set(summary_facebook)))
 
 summary_tables[fg_facebook_name] = summary_facebook
 
-# 12 Memorable meals
+# 11 Memorable meals
 fg_meal_name = 'Memorable meals'
 fg_meal = FeatureGroup(name=fg_meal_name, show=False)
 fg_meal.add_to(m)
@@ -693,7 +663,7 @@ for coord, meal_data in coord_to_meals.iteritems():
 
 summary_tables[fg_meal_name] = summary_meal
 
-# 13 Pies
+# 12 Pies
 fg_pie_name = 'Pies baked'
 fg_pie = FeatureGroup(name=fg_pie_name, show=False)
 fg_pie.add_to(m)
@@ -714,7 +684,7 @@ for i, day in enumerate(trip):
 
 summary_tables[fg_pie_name] = summary_pie
 
-# 14 Tiki bars
+# 13 Tiki bars
 fg_tiki_name = 'Tiki bars'
 fg_tiki = FeatureGroup(name=fg_tiki_name, show=False)
 fg_tiki.add_to(m)
@@ -734,7 +704,7 @@ for day in trip:
  
 summary_tables[fg_tiki_name] = summary_tiki
 
-# 15 Weddings
+# 14 Weddings
 fg_wedding_name = 'Weddings'
 fg_wedding = FeatureGroup(name=fg_wedding_name, show=False)
 fg_wedding.add_to(m)
@@ -756,23 +726,7 @@ for day in trip:
 
 summary_tables[fg_wedding_name] = summary_wedding
 
-# 16 Caves explored
-fg_cave = FeatureGroup(name='Caves explored', show=False)
-fg_cave.add_to(m)
-
-summary_cave = defaultdict(list)
-
-for day in trip:
-    if DAY_CAVES in day:
-        for c in day[DAY_CAVES]:
-            summary_cave[c].append(day[DAY_DATE])
-
-for cave, date_ranges in summary_cave.iteritems():
-    date_range = collapse_date_ranges(date_ranges)
-    popup = html_escape([cave, date_range])
-    add_park(cave, popup, fg_cave)
-
-# 17 Highest/lowest elevation
+# 15 Highest/lowest elevation
 fg_elevation = FeatureGroup(name='Highest/lowest elevation', show=False)
 fg_elevation.add_to(m)
 
@@ -790,7 +744,7 @@ for date, place, elev, coord in elevation_data:
 
 summary_elevation = map(lambda w: w[:3], elevation_data)
 
-# 18 Highest/lowest temperature
+# 16 Highest/lowest temperature
 fg_temperature = FeatureGroup(name='Highest/lowest temperature', show=False)
 fg_temperature.add_to(m)
 
@@ -809,7 +763,7 @@ for date, place, temp, coord in temperature_data:
 
 summary_temperature = map(lambda w: w[:3], temperature_data)
 
-# 19 Other notable events
+# 18 Other notable events
 fg_other_name = 'Other notable events'
 fg_other = FeatureGroup(name=fg_other_name, show=False)
 fg_other.add_to(m)

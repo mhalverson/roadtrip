@@ -74,7 +74,6 @@ trip = [
         DAY_HOURS: 5,
         DAY_FRIENDS: {'Laura and Austin': coords.abq},
         DAY_PARKS: ['Carlsbad Caverns NP'],
-        DAY_CAVES: ['Carlsbad Caverns NP'],
     },
     {
         DAY_DATE: date(2018,5,9),
@@ -200,7 +199,6 @@ trip = [
         DAY_WAYPOINTS: [(25.463643, -80.334882)],
         DAY_COORD: coords.florida_city,
         DAY_PARKS: ['Biscayne NP'],
-        DAY_SWIM: ('Biscayne NP', (25.388416, -80.218740)),
         DAY_MEALS: [('Robert is Here Fruit Stand', 'Milkshakes', (25.447392, -80.501892))],
     },
     {
@@ -267,7 +265,6 @@ trip = [
         DAY_HOURS: 2.5,
         DAY_FRIENDS: {'Laurel and Andy': coords.north_augusta,
                       'Piper and Anwar': coords.clemson},
-        DAY_SWIM: ('Lake Hartwell', (34.681392, -82.860668)),
         DAY_MEALS: [("Piper's", 'Thai soup', coords.clemson)],
         DAY_PIE: ('Strawberry basil', 'Piper and Anwar'),
     },
@@ -305,7 +302,6 @@ trip = [
         DAY_HOURS: 1.5,
         DAY_FRIENDS: {'Courtney': coords.nashville},
         DAY_PARKS: ['Mammoth Cave NP'],
-        DAY_CAVES: ['Mammoth Cave NP'],
     },
     {
         DAY_DATE: date(2018,6,6),
@@ -316,7 +312,6 @@ trip = [
         DAY_MILES: 134,
         DAY_HOURS: 2.5,
         DAY_PARKS: ['Mammoth Cave NP'],
-        DAY_CAVES: ['Mammoth Cave NP'],
     },
     {
         DAY_DATE: date(2018,6,7),
@@ -592,7 +587,6 @@ trip = [
         DAY_DATE: date(2018,7,8),
         DAY_COORD: coords.ann_arbor,
         DAY_FRIENDS: {'Jeremy and Christine': coords.ann_arbor},
-        DAY_SWIM: ('Huron River', coords.huron_river),
         DAY_MEALS: [('Blank Slate', 'Ice cream', (42.279710, -83.751276))],
         DAY_OTHER: [('Matt lost his phone in the river :(', coords.huron_river)],
     },
@@ -646,7 +640,6 @@ trip = [
         DAY_COORD: coords.chicago,
         DAY_FRIENDS: {'Brenda': coords.chicago},
         DAY_GOT_HIGH: [('Hancock Tower 96th Floor Signature Lounge', 1128, (41.898719, -87.622903))],
-        DAY_SWIM: ('Lake Michigan', (41.978315, -87.648103)),
     },
     {
         DAY_DATE: date(2018,7,15),
@@ -739,7 +732,6 @@ trip = [
         DAY_COORD: coords.lassen,
         DAY_PARKS: ['Lassen Volcanic NP'],
         DAY_ANIMAL: [('Bear', 'Lassen Volcanic NP')],
-        DAY_SWIM: ('Ridge Lakes', (40.456450, -121.549242)),
     },
     {
         DAY_DATE: date(2018,7,26),
@@ -757,7 +749,6 @@ trip = [
         DAY_COORD: coords.lava_beds,
         DAY_PARKS: ['Lava Beds NM'],
         DAY_MEALS: [('Camp', 'Avocado toast', coords.lava_beds)],
-        DAY_CAVES: ['Lava Beds NM'],
         DAY_OTHER: [('Matt finished his first journal, started a new one', coords.lava_beds)],
     },
     {
@@ -861,7 +852,6 @@ trip = [
         DAY_HOURS: 2,
         DAY_PARKS: ['Mount Rainier NP'],
         DAY_GOT_HIGH: [('Skyscraper Mountain', 7077, (46.926992, -121.697596))],
-        DAY_SWIM: ('Ohanapecosh River', coords.ohanapecosh),
         DAY_MEALS: [('Camp', 'Breakfast sandwiches', coords.ohanapecosh)],
     },
     {
@@ -873,7 +863,6 @@ trip = [
         DAY_PARKS: ['Mount Rainier NP'],
         DAY_ANIMAL: [('Mountain goats', 'Mount Rainier NP')],
         DAY_GOT_HIGH: [('Panorama Point', 6800, (46.803712, -121.729529))],
-        DAY_SWIM: ('Ohanapecosh River', coords.ohanapecosh),
         DAY_MEALS: [('Camp', 'BBQ tri-tip', coords.ohanapecosh)],
     },
     {
@@ -1009,7 +998,6 @@ trip = [
         DAY_COORD: coords.isle_royale,
         DAY_PARKS: ['Isle Royale NP'],
         DAY_ANIMAL: [('Moose', 'Isle Royale NP')],
-        DAY_SWIM: ('Huginnin Cove, Lake Superior', (47.935184, -89.175404)),
     },
     {
         DAY_DATE: date(2018,8,24),
@@ -1033,14 +1021,12 @@ trip = [
         DAY_PARKS: ['Boundary Waters Canoe Wilderness Area'],
         DAY_ANIMAL: [('Bald eagles in a talon-locked death spiral', 'Boundary Waters Canoe Wilderness Area'),
                      ('Loon', 'Boundary Waters Canoe Wilderness Area')],
-        DAY_SWIM: ('Lake Three', coords.lake_three),
     },
     {
         DAY_DATE: date(2018,8,26),
         DAY_COORD: coords.lake_three,
         DAY_PARKS: ['Boundary Waters Canoe Wilderness Area'],
         DAY_ANIMAL: [('Loon', 'Boundary Waters Canoe Wilderness Area')],
-        DAY_SWIM: ('Lake Three', coords.lake_three),
     },
     {
         DAY_DATE: date(2018,8,27),
@@ -1094,7 +1080,6 @@ trip = [
         DAY_MILES: 320,
         DAY_HOURS: 5.5,
         DAY_PARKS: ['Custer SP', 'Wind Cave NP', 'Jewel Cave NM', "Devil's Tower NM"],
-        DAY_CAVES: ['Wind Cave NP', 'Jewel Cave NM'],
     },
     {
         DAY_DATE: date(2018,9,1),
@@ -1122,7 +1107,6 @@ trip = [
         DAY_COORD_TYPE: DAY_COORD_CAMPING,
         DAY_PARKS: ['Banff NP'],
         DAY_ANIMAL: [('Elk', 'Banff NP')],
-        DAY_CAVES: ['Banff NP'],
     },
     {
         DAY_DATE: date(2018,9,4),
@@ -1396,11 +1380,9 @@ trip = [
         DAY_PARKS: ['Saguaro NP'], # don't forget to add to parks dict
         DAY_ANIMAL: [('Bear', 'Lassen Volcanic NP')],
         DAY_GOT_HIGH: [('Empire State Building', 1000, (0,0))],
-        DAY_SWIM: ('Huron River', (0,0)),
         DAY_MEALS: [('Tucson', 'Bills ribs', (0,0))],
         DAY_PIE: ('Shoo-fly pie', 'Lisa and Bill'),
         DAY_TIKI: ('Smugglers Cove', (0,0)),
-        DAY_CAVES: ['Lava Beds NM'],
         DAY_OTHER: [('O Henry Pun Off', coords.austin)],
     },
 '''

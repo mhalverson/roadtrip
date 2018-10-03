@@ -13,11 +13,9 @@ DAY_FRIENDS = 'friends' #optional; dict where key = friends or family members wh
 DAY_PARKS = 'parks' #optional; list indicating which parks we visited on that day. The geojson for parks are specified in a separate dict, so you'll have to add an entry in that dict when you add a new park to the list.
 DAY_ANIMAL = 'animal' #optional; pair of (animal name, park name)
 DAY_GOT_HIGH = 'got_high' #optional; list of triplets of (place name, height, coord) of high elevations we achieved
-DAY_SWIM = 'swim' #optional; pair of (place name, coord) of bodies of water we swum in
 DAY_MEALS = 'meals' #optional; list of triplets of (place name, description of memorable meal, coord)
 DAY_PIE = 'pie' #optional; pair of (pie name, recipient). The coord will be taken from the most recent DAY_COORD
 DAY_TIKI = 'tiki' #optional; pair of (bar name, coord)
-DAY_CAVES = 'caves' #optional; list of park names where we went caving on that day
 DAY_WEDDING = 'wedding' #optional; pair of (couple name, coord)
 DAY_OTHER = 'other_notable_event' #optional; pair of (event description, coord)
 
