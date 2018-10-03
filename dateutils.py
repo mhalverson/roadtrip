@@ -1,11 +1,14 @@
 from datetime import timedelta
 
+def format_date(d):
+    return '{}'.format(d)
+
 def format_date_range(first, last, sep=' to '):
     # collapse the range, joining with sep
     if first == last:
-        return '{}'.format(first)
+        return format_date(first)
     else:
-        return '{}{}{}'.format(first, sep, last)
+        return '{}{}{}'.format(format_date(first), sep, format_date(last))
 
 def break_into_ranges(dates):
     '''Given a list of datetime.dates, returns a list of lists of consecutive dates.

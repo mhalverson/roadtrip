@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import date
+import html
 import json
 from pprint import pprint
 from xml.sax.saxutils import escape
@@ -10,7 +11,7 @@ from shapely.geometry import shape, GeometryCollection, Point, mapping
 
 from common import *
 import coords
-from dateutils import (format_date_range, break_into_ranges, collapse_date_ranges)
+from dateutils import (format_date, format_date_range, break_into_ranges, collapse_date_ranges)
 from map import m
 from parks import parks
 from trip import trip
@@ -20,8 +21,9 @@ from trip import trip
 # . populate TRIP! and other summary data (including facebook posts)
 #
 # . clean up the route line in Portland, Acadia, Shenandoah, Quinault
-#
-# . move feature_group calculation into their own file, move summary/superlative data into its own file
+# . remove the sub feature groups of fg_sleep camp vs city -- they can still have different icons, but don't display them as toggleable layers
+# . remove fg_swim, fg_cave
+# . put high/low elevation and temperature into the executive summary instead of as feature groups / layers
 #
 # . figure out icons
 # . grep for other TODOs
@@ -38,7 +40,9 @@ ICON_STATE = 'state' # TODO
 COLOR_STATE_VISITED = 'green'
 COLOR_STATE_NOT_VISITED = 'red'
 
-summary = defaultdict(int)
+summary_tables = {}
+
+summary_ints = defaultdict(int)
 SUMMARY_DAYS_TOTAL = 'days_total'
 SUMMARY_DAYS_CAMPING = 'days_camping'
 SUMMARY_DAYS_CITY = 'days_city'
@@ -50,7 +54,7 @@ SUMMARY_HOURS = 'hours'
 
 # A feature group has the following properties:
 #  - map overlay of markers, where marker popups have date + description
-#  - summary table, including date + description
+#  - entry in summary_tables, including date + description
 
 # Route
 fg_route = FeatureGroup(name='Route', show=True)
@@ -80,7 +84,8 @@ for i, day in enumerate(trip):
 
 # 1 Sleep - subgroups for camping vs city
 # Subgroup docs: https://github.com/python-visualization/folium/issues/475
-fg_sleep = FeatureGroup(name='Where we slept', show=True)
+fg_sleep_name = 'Where we slept'
+fg_sleep = FeatureGroup(name=fg_sleep_name, show=True)
 fg_sleep.add_to(m)
 
 fg_sleep_subgroup_camping = plugins.FeatureGroupSubGroup(fg_sleep, '(Where we slept): camping')
@@ -120,11 +125,11 @@ for i, day in enumerate(trip):
         
         sleep_markers[sleep_coord] = (coord_label, coord_type, icon, subgroup)
     sleep_dates[sleep_coord].append(day[DAY_DATE])
-    summary[SUMMARY_DAYS_TOTAL] += 1
+    summary_ints[SUMMARY_DAYS_TOTAL] += 1
     if DAY_MILES in day:
-        summary[SUMMARY_MILES] += day[DAY_MILES]
+        summary_ints[SUMMARY_MILES] += day[DAY_MILES]
     if DAY_HOURS in day:
-        summary[SUMMARY_HOURS] += day[DAY_HOURS]
+        summary_ints[SUMMARY_HOURS] += day[DAY_HOURS]
 
 for sleep_coord, dates in sleep_dates.iteritems():
     (coord_label, coord_type, icon, subgroup) = sleep_markers[sleep_coord]      
@@ -143,10 +148,13 @@ for sleep_coord, dates in sleep_dates.iteritems():
         DAY_COORD_CAMPING: SUMMARY_DAYS_CAMPING,
         DAY_COORD_CITY: SUMMARY_DAYS_CITY,
     }[coord_type]
-    summary[summary_type] += len(dates)
+    summary_ints[summary_type] += len(dates)
+
+summary_tables[fg_sleep_name] = sorted(summary_sleep)
 
 # 2 Friend
-fg_friend = FeatureGroup(name='Who we saw', show=False)
+fg_friend_name = 'Who we saw'
+fg_friend = FeatureGroup(name=fg_friend_name, show=False)
 fg_friend.add_to(m)
 
 friend_and_coord_to_dates = defaultdict(list)  # key is tuple of (friend, coord); value is list of dates we saw them
@@ -175,8 +183,11 @@ for friend_data, dates in friend_and_coord_to_dates.iteritems():
         date_range = format_date_range(first, last)
         summary_friend.append((date_range, friend))    
 
+summary_tables[fg_friend_name] = sorted(summary_friend)
+
 # 3 State
-fg_state = FeatureGroup(name='States we visited', show=False)
+fg_state_name = 'States we drove through'
+fg_state = FeatureGroup(name=fg_state_name, show=False)
 fg_state.add_to(m)
 
 # Load states data from folium itself o_O A bit weird, but if it's there... why not?
@@ -245,8 +256,11 @@ for s in states:
     gj.add_child(Popup(popup))
     gj.add_to(fg_state)
 
+summary_tables[fg_state_name] = sorted([(collapse_date_ranges(v) or 'did not visit', str(k)) for k, v in summary_state.iteritems()])
+
 # 4 Park
-fg_park = FeatureGroup(name='Parks we visited', show=False)
+fg_park_name = 'Parks we visited'
+fg_park = FeatureGroup(name=fg_park_name, show=False)
 fg_park.add_to(m)
 
 summary_park = defaultdict(list)
@@ -276,8 +290,11 @@ for p, date_ranges in summary_park.iteritems():
     popup = html_escape([p, date_range])
     add_park(p, popup, fg_park)
 
+summary_tables[fg_park_name] = sorted([(collapse_date_ranges(v), k) for k, v in summary_park.iteritems()])
+
 # 5 Superlative cities # TODO revisit when done
-fg_superlative_cities = FeatureGroup(name='Favourite (+least) city', show=False)
+fg_superlative_cities_name = 'Favourite (+least) city'
+fg_superlative_cities = FeatureGroup(name=fg_superlative_cities_name, show=False)
 fg_superlative_cities.add_to(m)
 
 superlative_cities_data = [
@@ -295,9 +312,11 @@ for dates, desc, coord in superlative_cities_data:
     ).add_to(fg_superlative_cities)
 
 summary_superlative_city = map(lambda x: x[:2], superlative_cities_data)
+summary_tables[fg_superlative_cities_name] = summary_superlative_city
 
 # 6 Superlative nature # TODO revisit when done
-fg_superlative_nature = FeatureGroup(name='Favourite (+least) nature', show=False)
+fg_superlative_nature_name = 'Favourite (+least) nature'
+fg_superlative_nature = FeatureGroup(name=fg_superlative_nature_name, show=False)
 fg_superlative_nature.add_to(m)
 
 superlative_nature_data = [
@@ -313,9 +332,11 @@ summary_superlative_nature = map(
     lambda x: (x[0], '{}: {}'.format(x[1], x[2])),
     superlative_nature_data,
 )
+summary_tables[fg_superlative_nature_name] = summary_superlative_nature
 
 # 7 Animal sightings
-fg_animal = FeatureGroup(name='Animal sightings', show=False)
+fg_animal_name = 'Animal sightings'
+fg_animal = FeatureGroup(name=fg_animal_name, show=False)
 fg_animal.add_to(m)
 
 park_to_animal = defaultdict(list)  # key is park name; value is list of tuples of (animal, date)
@@ -345,9 +366,11 @@ for park, animal_data in park_to_animal.iteritems():
     popup = html_escape(popup_lines)
     add_park(park, popup, fg_animal)
 
+summary_tables[fg_animal_name] = sorted(summary_animal)
 
 # 8 Mountains climbed aka getting high
-fg_got_high = FeatureGroup(name='High elevations', show=False)
+fg_got_high_name = 'High elevations'
+fg_got_high = FeatureGroup(name=fg_got_high_name, show=False)
 fg_got_high.add_to(m)
 
 summary_got_high = []
@@ -363,10 +386,13 @@ for day in trip:
                 # TODO custom icon
                 popup=html_escape([place, height_str, date]),
             ).add_to(fg_got_high)
-            summary_got_high.append((date, height_str))
+            summary_got_high.append((format_date(date), place, height_str))
+
+summary_tables[fg_got_high_name] = summary_got_high
 
 # 9 Swimming
-fg_swim = FeatureGroup(name='Places we swam', show=False)
+fg_swim_name = 'Places we swam'
+fg_swim = FeatureGroup(name=fg_swim_name, show=False)
 fg_swim.add_to(m)
 
 swim_to_dates = defaultdict(list)  # key is (place name, latlng), value is list of dates
@@ -377,7 +403,7 @@ for day in trip:
         date = day[DAY_DATE]
         swim_to_dates[swim_data].append(date)
 
-summary_swim = {}
+summary_swim = []
 
 for swim_data, dates in swim_to_dates.iteritems():
     (place, coord) = swim_data
@@ -389,10 +415,13 @@ for swim_data, dates in swim_to_dates.iteritems():
         popup=popup,
     ).add_to(fg_swim)
     
-    summary_swim[place] = collapse_date_ranges(dates)
+    summary_swim.append((place, collapse_date_ranges(dates)))
+
+summary_tables[fg_swim_name] = summary_swim
 
 # 10 Extreme points NSEW
-fg_extreme_nsew = FeatureGroup(name='Extreme points north/south/east/west', show=False)
+fg_extreme_nsew_name = 'Extreme points north/south/east/west'
+fg_extreme_nsew = FeatureGroup(name=fg_extreme_nsew_name, show=False)
 fg_extreme_nsew.add_to(m)
 
 extreme_nsew_data = [
@@ -410,12 +439,14 @@ for direction, date, place, coord in extreme_nsew_data:
     ).add_to(fg_extreme_nsew)
 
 summary_extreme_nsew = map(
-    lambda x: (x[0], x[1], '{} - {}'.format(x[2], x[3])),
+    lambda x: (x[0], x[1], '{}: {}'.format(x[2], x[3])),
     extreme_nsew_data,
 )
+summary_tables[fg_extreme_nsew_name] = summary_extreme_nsew
 
 # 11 Facebook posts
-fg_facebook = FeatureGroup(name='Facebook posts', show=False)
+fg_facebook_name = 'Facebook posts'
+fg_facebook = FeatureGroup(name=fg_facebook_name, show=False)
 fg_facebook.add_to(m)
 
 facebook_data = {
@@ -604,7 +635,7 @@ facebook_data = {
     tuple([((-111.2974, 43.8931), (-106.4980, 41.1776), (-105.9082, 40.0276), (-104.5459, 40.0276), (-104.9414, 41.5250), (-110.1654, 43.9731), (-111.2974, 43.8931))]):
     [('2018-09-20 to 2018-09-26',
       'Grand Teton and Rocky Mountain',
-      ''), # TODO
+      'https://www.facebook.com/mhhalverson/posts/10215609289959061'),
     ],
 
     # '2018-09-26 to 2018-10-02', 'Mesa Verde and Utah part 1', '', [[]], # TODO
@@ -631,8 +662,11 @@ for _, visits in facebook_data.iteritems():
     summary_facebook.extend(visits)
 summary_facebook = sorted(list(set(summary_facebook)))
 
+summary_tables[fg_facebook_name] = summary_facebook
+
 # 12 Memorable meals
-fg_meal = FeatureGroup(name='Memorable meals', show=False)
+fg_meal_name = 'Memorable meals'
+fg_meal = FeatureGroup(name=fg_meal_name, show=False)
 fg_meal.add_to(m)
 
 summary_meal = []
@@ -644,7 +678,7 @@ for day in trip:
         date = day[DAY_DATE]
         for place, meal_desc, coord in day[DAY_MEALS]:
             coord_to_meals[coord].append((place, meal_desc, date))
-            summary_meal.append((date, '{}: {}'.format(place, meal_desc)))
+            summary_meal.append((format_date(date), '{}: {}'.format(place, meal_desc)))
 
 for coord, meal_data in coord_to_meals.iteritems():
     popup_elems = [meal_data[0][0]]
@@ -657,8 +691,11 @@ for coord, meal_data in coord_to_meals.iteritems():
         popup=popup,
     ).add_to(fg_meal)
 
+summary_tables[fg_meal_name] = summary_meal
+
 # 13 Pies
-fg_pie = FeatureGroup(name='Pies baked', show=False)
+fg_pie_name = 'Pies baked'
+fg_pie = FeatureGroup(name=fg_pie_name, show=False)
 fg_pie.add_to(m)
 
 summary_pie = []
@@ -673,10 +710,13 @@ for i, day in enumerate(trip):
             # TODO custom icon
             popup=html_escape(['{} pie'.format(pie), 'for {}'.format(recipient), date]),
         ).add_to(fg_pie)
-        summary_pie.append((date, '{} pie for {}'.format(pie, recipient)))
+        summary_pie.append((format_date(date), '{} pie for {}'.format(pie, recipient)))
+
+summary_tables[fg_pie_name] = summary_pie
 
 # 14 Tiki bars
-fg_tiki = FeatureGroup(name='Tiki bars', show=False)
+fg_tiki_name = 'Tiki bars'
+fg_tiki = FeatureGroup(name=fg_tiki_name, show=False)
 fg_tiki.add_to(m)
 
 summary_tiki = []
@@ -690,10 +730,13 @@ for day in trip:
             # TODO custom icon
             popup=html_escape([bar, date]),
         ).add_to(fg_tiki)
-        summary_tiki.append((date, bar))
-        
+        summary_tiki.append((format_date(date), bar))
+ 
+summary_tables[fg_tiki_name] = summary_tiki
+
 # 15 Weddings
-fg_wedding = FeatureGroup(name='Weddings', show=False)
+fg_wedding_name = 'Weddings'
+fg_wedding = FeatureGroup(name=fg_wedding_name, show=False)
 fg_wedding.add_to(m)
 
 summary_wedding = []
@@ -709,7 +752,9 @@ for day in trip:
             popup=html_escape([couple, date]),
         ).add_to(fg_wedding)
 
-        summary_wedding.append((date, couple))
+        summary_wedding.append((format_date(date), couple))
+
+summary_tables[fg_wedding_name] = summary_wedding
 
 # 16 Caves explored
 fg_cave = FeatureGroup(name='Caves explored', show=False)
@@ -765,7 +810,8 @@ for date, place, temp, coord in temperature_data:
 summary_temperature = map(lambda w: w[:3], temperature_data)
 
 # 19 Other notable events
-fg_other = FeatureGroup(name='Other notable events', show=False)
+fg_other_name = 'Other notable events'
+fg_other = FeatureGroup(name=fg_other_name, show=False)
 fg_other.add_to(m)
 
 summary_other = []
@@ -781,54 +827,68 @@ for day in trip:
                 popup=html_escape([event, date]),
             ).add_to(fg_other)
 
-            summary_other.append((date, event))
+            summary_other.append((format_date(date), event))
+
+summary_tables[fg_other_name] = summary_other
 
 ### END OF FEATURE GROUPS
 
-# Map finalize
+# Map finalization
 LayerControl().add_to(m)
 
-# Summary table
-SUMMARY_BOOKS_READ = [
-    'Iron Druid Chronicles #1: Hounded',
-    'Iron Druid Chronicles #2: Hexed',
-    'Iron Druid Chronicles #3: Hammered',
-    'Iron Druid Chronicles #4: Tricked',
-    'Iron Druid Chronicles #5: Trapped',
-    'Iron Druid Chronicles #6: Hunted',
-    'Iron Druid Chronicles #7: Shattered',
-    'Iron Druid Chronicles #8: Staked',
-    'Iron Druid Chronicles #8.5: Besieged',
-    'Iron Druid Chronicles #9: Scourged',
-    "Man's Search for Meaning",
-    'The Lost City of Z',
-    'The Slow Regard of Silent Things',
-    'Red Rising',
-    'Golden Son',
-    'Morning Star',
-    'The Great War for New Zealand',
-    'Blood Meridian',
-    # 'The Luminaries',
-    # 'Iron Gold',
-] # TODO render this somehow
-# TODO add authors
-
-executive_summary = [('Total days on the road', summary[SUMMARY_DAYS_TOTAL]),
- ('Days of camping', summary[SUMMARY_DAYS_CAMPING]),
- ('Days in cities', summary[SUMMARY_DAYS_CITY]),
- ('Total miles of driving', summary[SUMMARY_MILES]),
- ('Total hours of driving', summary[SUMMARY_HOURS]),
- ('Tanks of gas', 31 + #before MN
-                  11 + #west coast leg
-                  0),  #TODO after MN
- ('Number of flights', 6 + # from dc to portland / santa barbara and back
-                       2 + # from mpls to sf and back
-                       2 # from calgary to sf and back
- ),
- ('Number of books read', len(SUMMARY_BOOKS_READ)),
+# Summary generation
+executive_summary = [
+ ('Total days on the road', str(summary_ints[SUMMARY_DAYS_TOTAL])),
+ ('Days of camping', str(summary_ints[SUMMARY_DAYS_CAMPING])),
+ ('Days in cities', str(summary_ints[SUMMARY_DAYS_CITY])),
+ ('Total miles of driving', str(summary_ints[SUMMARY_MILES])),
+ ('Total hours of driving', str(summary_ints[SUMMARY_HOURS])),
+ ('Tanks of gas', str(31 + #before MN
+                      11 + #west coast leg
+                      0)),  #TODO after MN
+ ('Number of flights', str(6 + # from dc to portland / santa barbara and back
+                           2 + # from mpls to sf and back
+                           2)), # from calgary to sf and back
+ ('Books read', 'Iron Druid Chronicles #1: Hounded by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #2: Hexed by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #3: Hammered by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #4: Tricked by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #5: Trapped by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #6: Hunted by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #7: Shattered by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #8: Staked by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #8.5: Besieged by Kevin Hearne'),
+ ('', 'Iron Druid Chronicles #9: Scourged by Kevin Hearne'),
+ ('', "Man's Search for Meaning by Viktor Frankl"),
+ ('', 'The Lost City of Z by David Grann'),
+ ('', 'The Slow Regard of Silent Things by Patrick Rothfuss'),
+ ('', 'Red Rising by Pierce Brown'),
+ ('', 'Golden Son by Pierce Brown'),
+ ('', 'Morning Star by Pierce Brown'),
+ ('', "The Great War for New Zealand by Vincent O'Malley"),
+ ('', 'Blood Meridian by Cormac McCarthy'),
+ # ('', 'The Luminaries by Eleanor Catton'),
+ # ('', 'Iron Gold by Pierce Brown'),
 ]
+summary_tables['executive_summary'] = executive_summary
+
+summary_tables_html = {}
+for k, v in summary_tables.iteritems():
+    h = html.HTML()
+    t = h.table(border='1')
+    for row in v:
+        r = t.tr()
+        for item in row:
+            r.td(item, style='padding:10px')
+    summary_tables_html[k] = '{}'.format(t)
+
 
 if __name__=='__main__':
-    import sys
-    filename = sys.argv[1]
-    m.save(filename)
+    map_filename = 'rendered_map.html'
+    m.save(map_filename)
+
+    summary_filename = 'summary_data.js'
+    with open(summary_filename, 'w') as f:
+        f.write('var summary_data = ')
+        f.write(json.dumps(summary_tables_html))
+        f.write(';')

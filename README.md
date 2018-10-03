@@ -18,6 +18,6 @@ Powered by [Folium](https://github.com/python-visualization/folium).
 
 * `jupyter notebook master.ipynb` to start a Jupyter Notebook server
 * In the Jupyter Notebook, click `Run` and see the interactive map in all its glory
-* Export the map to a file by the following means:
-  - uncomment the line `m.save(...)` in the Notebook OR
-  - run `python main.py <filename>` in the shell
+* Run `python main.py` to achieve the following:
+  - export the map to a file `rendered_map.html` and export the summary data to a file `summary_data.js`
+  - then you can copy the map html and the summary data over to the website repository: `cp ../roadtrip/roadtrip/summary_data.js great_american_roadtrip_summary.js` and `cp ../roadtrip/roadtrip/rendered_map.html great_american_roadtrip_map.html`

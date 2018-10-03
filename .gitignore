@@ -4,3 +4,5 @@
 env/
 folium/
 data/
+rendered_map.html
+summary_data.js
