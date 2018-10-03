@@ -174,31 +174,34 @@ fg_friend_name = 'Who we saw'
 fg_friend = FeatureGroup(name=fg_friend_name, show=False)
 fg_friend.add_to(m)
 
-friend_and_coord_to_dates = defaultdict(list)  # key is tuple of (friend, coord); value is list of dates we saw them
-friend_to_dates = defaultdict(list)  # key is friend name; value is list of dates we saw them
+# key is coord, value is dict again with key of friend and value of list of dates we saw them
+coord_to_friend_to_dates = defaultdict(lambda: defaultdict(list))
 
 for i, day in enumerate(trip):
     if DAY_FRIENDS in day:
         for (friend, coord) in day[DAY_FRIENDS].iteritems():
             date = day[DAY_DATE]
-            friend_and_coord_to_dates[(friend, coord)].append(date)
-            friend_to_dates[friend].append(date)
+            coord_to_friend_to_dates[coord][friend].append(date)
 
 summary_friend = []
 
-for friend_data, dates in friend_and_coord_to_dates.iteritems():
-    (friend, coord) = friend_data
-    
-    popup = '{}<br/>{}'.format(friend, collapse_date_ranges(dates, sep='<br/>'))
+for coord, friend_dict in coord_to_friend_to_dates.iteritems():
+    popup_elems = []
+    for friend, dates in friend_dict.iteritems():
+        # popup will GROUP BY coord
+        popup_elems.append((friend, collapse_date_ranges(dates, sep='<br/>')))
+        # summary has no coords so we break up all the date ranges
+        for first, last in break_into_ranges(dates):
+            date_range = format_date_range(first, last)
+            summary_friend.append((date_range, friend))
+    popup_elems.sort(key=lambda x: x[1])
+    formatted_popup_elems = map(lambda x: '{}<br/>{}'.format(x[0], x[1]), popup_elems)
+    popup = '<br/>'.join(formatted_popup_elems)
     Marker(
         location=coord,
         popup=popup,
         icon=folium.Icon(icon=ICON_FRIEND, color=COLOR_FRIEND),
     ).add_to(fg_friend)
-    
-    for first, last in break_into_ranges(dates):
-        date_range = format_date_range(first, last)
-        summary_friend.append((date_range, friend))    
 
 summary_tables[fg_friend_name] = sorted(summary_friend)
 
