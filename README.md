@@ -4,6 +4,9 @@ This repo will generate an interactive map of my 2018 roadtrip around the USA.
 
 Powered by [Folium](https://github.com/python-visualization/folium).
 
+Intended for integration into my personal website:
+https://github.com/mhalverson/website
+
 # Setup
 
 * `virtualenv env` to create a virtualenv named env that will hold our dependencies in a sandbox
@@ -19,5 +22,5 @@ Powered by [Folium](https://github.com/python-visualization/folium).
 * `jupyter notebook master.ipynb` to start a Jupyter Notebook server
 * In the Jupyter Notebook, click `Run` and see the interactive map in all its glory
 * Run `python main.py` to achieve the following:
-  - export the map to a file `rendered_map.html` and export the summary data to a file `summary_data.js`
-  - then you can copy the map html and the summary data over to the website repository: `cp ../roadtrip/roadtrip/summary_data.js great_american_roadtrip_summary.js` and `cp ../roadtrip/roadtrip/rendered_map.html great_american_roadtrip_map.html`
+  - export the map to a file `rendered_map.html`
+  - export the summary data to a file `summary_data.js`
