@@ -432,7 +432,7 @@ facebook_data = {
     tuple([((-90.994541, 30.981744), (-90.994541, 29.45283), (-89.452761, 29.45283), (-89.452761, 30.981744), (-90.994541, 30.981744))]):
     [('2018-05-14 to 2018-05-19',
       'New Orleans',
-      'https://www.facebook.com/mhhalverson/posts/10214686987822084' and 'https://www.facebook.com/photo.php?fbid=10106654355949163&set=a.763822147163.2423144.3204198&type=3&theater'),
+      'https://www.facebook.com/mhhalverson/posts/10214686987822084'),
     ],
 
     tuple([((-82.260209, 28.722341), (-82.260209, 24.345069), (-79.892713, 24.345069), (-79.892713, 28.722341), (-82.260209, 28.722341))]):
@@ -590,10 +590,20 @@ facebook_data = {
       'https://www.facebook.com/mhhalverson/posts/10215609289959061'),
     ],
 
-    # '2018-09-26 to 2018-10-02', 'Mesa Verde and Utah part 1', '', [[]], # TODO
-    # '2018-10-02 to 2018-10-08', 'Utah part 2', '', [[]], # TODO
-    # '2018-10-08 to 2018-10-', '', '', [[]], # TODO
-    # TODO fill this out
+    tuple([((-110.2764, 38.4458), (-109.5074, 37.5541), (-108.2824, 37.0297), (-108.2153, 37.4182), (-109.4788, 38.9551), (-110.2764, 38.4458))]):
+    [('2018-09-26 to 2018-10-02',
+      'Mesa Verde and Utah part 1',
+      'https://www.facebook.com/mhhalverson/posts/10215629675508687'),
+    ],
+
+    tuple([((-113.2877, 37.5215), (-113.0790, 37.0408), (-112.0407, 37.4038), (-111.9968, 37.7304), (-112.6010, 37.8649), (-113.2877, 37.5215))]):
+    [('2018-10-02 to 2018-10-08',
+      'Utah part 2',
+      ''), # TODO, make sure it's public
+    ],
+
+    # '2018-10-08 to 2018-10-', 'Grand Canyon, Scottsdale, and SoCal deserts', '', [[]], # TODO, make sure it's public
+    # TODO finish filling this out
 }
 
 for polygon, visits in facebook_data.iteritems():
@@ -775,10 +785,10 @@ executive_summary = [ # TODO revisit when done
  ('', 'Red Rising by Pierce Brown'),
  ('', 'Golden Son by Pierce Brown'),
  ('', 'Morning Star by Pierce Brown'),
+ ('', 'Iron Gold by Pierce Brown'),
  ('', "The Great War for New Zealand by Vincent O'Malley"),
  ('', 'Blood Meridian by Cormac McCarthy'),
  # ('', 'The Luminaries by Eleanor Catton'),
- # ('', 'Iron Gold by Pierce Brown'),
 ]
 summary_tables['executive_summary'] = executive_summary
 
@@ -789,7 +799,10 @@ for k, v in summary_tables.iteritems():
     for row in v:
         r = t.tr()
         for item in row:
-            r.td(item, style='padding:10px')
+            if k == fg_facebook_name and item == row[-1]:
+                r.td(h.a(item, href=item), style='padding:10px', escape=False)
+            else:
+                r.td(item, style='padding:10px')
     summary_tables_html[k] = '{}'.format(t)
 
 
