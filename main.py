@@ -16,13 +16,10 @@ from map import m
 from parks import parks
 from trip import trip
 
-# next steps --
-#
-# . populate TRIP! and other summary data (including facebook posts)
-# . any other TODOs
-
 PREFIX_FONT_AWESOME = 'fa'
 
+ICON_START_END = 'flag'
+COLOR_START_END = 'blue'
 ICON_CAMPING = 'eject'
 COLOR_CAMPING = 'green'
 ICON_CITY = 'home'
@@ -99,6 +96,21 @@ for i, day in enumerate(trip):
         weight=5,
         popup='{}'.format(day[DAY_DATE]),
     ).add_to(fg_route)
+
+# Start/End
+fg_start_end = FeatureGroup(name='Start/End', show=True)
+fg_start_end.add_to(m)
+
+Marker(
+    location=coords.sf,
+    popup='Start: 2018-05-02',
+    icon=folium.Icon(icon=ICON_START_END, color=COLOR_START_END),
+).add_to(fg_start_end)
+Marker(
+    location=coords.salinas,
+    popup='End: 2018-10-29',
+    icon=folium.Icon(icon=ICON_START_END, color=COLOR_START_END),
+).add_to(fg_start_end)
 
 # 1 Sleep
 fg_sleep_name = 'Where we slept (camping in green, cities in blue)'
@@ -599,11 +611,32 @@ facebook_data = {
     tuple([((-113.2877, 37.5215), (-113.0790, 37.0408), (-112.0407, 37.4038), (-111.9968, 37.7304), (-112.6010, 37.8649), (-113.2877, 37.5215))]):
     [('2018-10-02 to 2018-10-08',
       'Utah part 2',
-      ''), # TODO, make sure it's public
+      'https://www.facebook.com/mhhalverson/posts/10215706987361435'),
     ],
 
-    # '2018-10-08 to 2018-10-', 'Grand Canyon, Scottsdale, and SoCal deserts', '', [[]], # TODO, make sure it's public
-    # TODO finish filling this out
+    tuple([((-112.4726, 36.3115), (-112.5756, 33.5359), (-111.3364, 33.2245), (-110.7409, 36.1369), (-112.4726, 36.3115))]):
+    [('2018-10-08 to 2018-10-12',
+      'Grand Canyon and Scottsdale',
+      'https://www.facebook.com/mhhalverson/posts/10215733025572374'),
+    ],
+
+    tuple([((-116.6094, 34.1495), (-117.3016, 33.2538), (-117.2356, 32.6222), (-115.4559, 33.0284), (-114.9505, 34.1268), (-116.0436, 34.2177), (-116.6094, 34.1495))]):
+    [('2018-10-12 to 2018-10-19',
+      'Joshua Tree and San Diego',
+      'https://www.facebook.com/mhhalverson/posts/10215781477623645'),
+    ],
+
+    tuple([((-118.5891, 34.2300), (-118.5891, 33.6511), (-117.6302, 33.6511), (-117.6302, 34.2300), (-118.5891, 34.2300))]):
+    [('2018-10-19 to 2018-10-26',
+      'Los Angeles',
+      'https://www.facebook.com/mhhalverson/posts/10215798928539907'),
+    ],
+
+    tuple([((-121.5168, 36.7376), (-121.9672, 36.7596), (-122.1155, 36.4023), (-120.8323, 35.0161), (-120.5268, 33.8849), (-119.2250, 33.8894), (-119.0657, 34.3215), (-120.4579, 35.3257), (-121.5168, 36.7376))]):
+    [('2018-10-26 to 2018-10-29',
+      'Channel Islands and Santa Barbara',
+      'https://www.facebook.com/mhhalverson/posts/10215806663093266'),
+    ],
 }
 
 for polygon, visits in facebook_data.iteritems():
@@ -746,26 +779,28 @@ summary_tables[fg_other_name] = summary_other
 LayerControl().add_to(m)
 
 # Summary generation
-executive_summary = [ # TODO revisit when done
+executive_summary = [
  ('Total days on the road', str(summary_ints[SUMMARY_DAYS_TOTAL])),
  ('Days of camping', str(summary_ints[SUMMARY_DAYS_CAMPING])),
  ('Days in cities', str(summary_ints[SUMMARY_DAYS_CITY])),
- ('Total miles of driving', str(summary_ints[SUMMARY_MILES])), # TODO compare this to the gas logs from van + Elantra
+ ('Total miles of driving', str(summary_ints[SUMMARY_MILES])),
  ('Total hours of driving', str(summary_ints[SUMMARY_HOURS])),
  ('Longest driving day', '{} miles / {} hours'.format(
      summary_ints[SUMMARY_LONGEST_DAY_MILES],
      summary_ints[SUMMARY_LONGEST_DAY_HOURS])),
+ ('Number of car accidents', '0'),
+ ('Number of hospital visits', '0'),
+ ('Number of thefts', '0'),
+ ('Number of states visited', str(len([k for k, v in summary_state.iteritems() if v]))),
+ ('Number of national parks visited', str(len([k for k, _ in summary_park.iteritems() if k.endswith(' NP') and k != 'Banff NP']))),
  ('Highest elevation', '{} on 2018-09-24 on Trail Ridge Road Summit in Rocky Mountain NP'.format(format_elevation(12183))),
- ('Lowest elevation', '{} from 2018-05-14 to 2018-05-19 in New Orleans'.format(format_elevation(-4))),
+ ('Lowest elevation', '{} on 2018-10-15 at the Salton Sea'.format(format_elevation(-236))),
  ('Highest temperature', '100F/38C on 2018-05-05 in Tucson'),
- ('Lowest temperature', '26F/-3C on 2018-09-26 in Rocky Mountain NP'),
+ ('Lowest temperature', '25F/-4C on 2018-10-08 in Grand Canyon NP'),
  ('Favourite city', 'Chicago for Claire, DC for Matt'),
  ('Least favourite city', 'Dallas for Claire, Augusta for Matt'),
- ('Favourite nature', 'Banff NP for both of us'),
+ ('Favourite nature', 'Olympic NP for Claire, Glacier NP for Matt'),
  ('Least favourite nature', 'Congaree NP for both of us'),
- ('Tanks of gas', str(31 + #before MN
-                      11 + #west coast leg
-                      0)),  #TODO after MN
  ('Number of flights', str(6 + # from dc to portland / santa barbara and back
                            2 + # from mpls to sf and back
                            2)), # from calgary to sf and back
@@ -788,7 +823,7 @@ executive_summary = [ # TODO revisit when done
  ('', 'Iron Gold by Pierce Brown'),
  ('', "The Great War for New Zealand by Vincent O'Malley"),
  ('', 'Blood Meridian by Cormac McCarthy'),
- # ('', 'The Luminaries by Eleanor Catton'),
+ ('', 'The Luminaries by Eleanor Catton'),
 ]
 summary_tables['executive_summary'] = executive_summary
 
