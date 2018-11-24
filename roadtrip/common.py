@@ -15,6 +15,7 @@ DAY_COORD_TYPE = 'coord_type' #   indicates whether we were camping or in a city
 DAY_COORD_CAMPING = 'camping'
 DAY_COORD_CITY = 'city'
 DAY_MILES = 'miles' #optional; indicates how many miles we drove that day
+DAY_KMS = 'kilometres' #optional; indicates how many kms we drove that day
 DAY_HOURS = 'hours' #optional; indicates how many hours we drove that day
 DAY_FRIENDS = 'friends' #optional; dict where key = friends or family members who we saw on that day (string) and value = latlng
 DAY_PARKS = 'parks' #optional; list indicating which parks we visited on that day. The geojson for parks are specified in a separate dict, so you'll have to add an entry in that dict when you add a new park to the list.
@@ -36,6 +37,8 @@ def format_elevation(height_ft):
     height_m = int(height_ft * 0.3048)
     return '{} ft/{} m'.format(height_ft, height_m)
 
+def tuple_reverse(t):
+    return tuple(reversed(t))
 
 # HTML: escape() and unescape() takes care of &, < and >.
 html_escape_table = {
