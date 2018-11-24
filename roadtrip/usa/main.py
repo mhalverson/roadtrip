@@ -2,21 +2,19 @@ from collections import defaultdict
 from datetime import date
 import html
 import json
+import os.path
 from pprint import pprint
-from xml.sax.saxutils import escape
 
 import folium
 from folium import FeatureGroup, GeoJson, LayerControl, Map, Marker, Popup, plugins
 from shapely.geometry import shape, GeometryCollection, Point, mapping
 
-from common import *
-import coords
-from dateutils import (format_date, format_date_range, break_into_ranges, collapse_date_ranges)
-from map import m
-from parks import parks
-from trip import trip
+from roadtrip.common import *
 
-PREFIX_FONT_AWESOME = 'fa'
+import roadtrip.usa.coords as coords
+from roadtrip.usa.map import m
+from roadtrip.usa.parks import parks
+from roadtrip.usa.trip import trip
 
 ICON_START_END = 'flag'
 COLOR_START_END = 'blue'
@@ -117,17 +115,6 @@ fg_sleep_name = 'Where we slept (camping in green, cities in blue)'
 fg_sleep = FeatureGroup(name=fg_sleep_name, show=False)
 fg_sleep.add_to(m)
 
-# escape() and unescape() takes care of &, < and >.
-html_escape_table = {
-    '"': "&quot;",
-    "'": "&apos;"
-}
-def html_escape(strings, sep='<br/>'):
-    no_empties = filter(lambda s: s, strings)
-    formatted = map(lambda s: '{}'.format(s), no_empties)
-    escaped = map(lambda s: escape(s, html_escape_table), formatted)
-    return sep.join(escaped)
-
 sleep_markers = {} # key is latlng, value is (coord_label, coord_type, icon)
 sleep_dates = defaultdict(list)  # key is latlng, value is list of dates we were there
 
@@ -221,7 +208,8 @@ fg_state.add_to(m)
 
 # Load states data from folium itself o_O A bit weird, but if it's there... why not?
 states = None
-with open("./folium/examples/data/us-states.json") as f:
+states_file = os.path.join(BASE_DIR, './folium/examples/data/us-states.json')
+with open(states_file) as f:
     states = json.load(f)["features"]
 
 # add abbreviation as a property!
@@ -364,10 +352,6 @@ fg_got_high = FeatureGroup(name=fg_got_high_name, show=False)
 fg_got_high.add_to(m)
 
 summary_got_high = []
-
-def format_elevation(height_ft):
-    height_m = int(height_ft * 0.3048)
-    return '{} ft/{} m'.format(height_ft, height_m)
 
 for day in trip:
     if DAY_GOT_HIGH in day:
@@ -842,10 +826,13 @@ for k, v in summary_tables.iteritems():
 
 
 if __name__=='__main__':
-    map_filename = 'rendered_map.html'
-    m.save(map_filename)
+    map_filename = os.path.join(BASE_DIR, 'usa.rendered_map.html')
+    print 'Writing map HTML to file: {}'.format(map_filename)
+    with open(map_filename, 'w'):
+        m.save(map_filename)
 
-    summary_filename = 'summary_data.js'
+    summary_filename = os.path.join(BASE_DIR, 'usa.summary_data.js')
+    print 'Writing summary data to file: {}'.format(summary_filename)
     with open(summary_filename, 'w') as f:
         f.write('var summary_data = ')
         f.write(json.dumps(summary_tables_html))

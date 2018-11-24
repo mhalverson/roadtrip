@@ -1,7 +1,8 @@
 from datetime import date
 
-from common import *
-import coords
+from roadtrip.common import *
+
+import roadtrip.usa.coords as coords
 
 trip = [
     # Trip is a list of Day records

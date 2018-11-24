@@ -1,6 +1,7 @@
 # The main export of this module is the "parks" dict.
 
 import json
+import os.path
 
 park_data = {
     # For national parks and national monuments, specify the four-letter
@@ -112,7 +113,11 @@ parks = {}
 for p, data in park_data.iteritems():
     # coerce to shapely geometries from https://medium.com/@pramukta/recipe-importing-geojson-into-shapely-da1edf79f41d
     if isinstance(data, str):
-        with open('./data/base_data/boundaries/parks/{}.geojson'.format(data)) as f:
+        geojson_path = os.path.join(
+            os.path.dirname(__file__),
+            'data/base_data/boundaries/parks/{}.geojson',
+        ).format(data)
+        with open(geojson_path) as f:
             geom = json.load(f)["geometry"]
             # Special handling -- the parks dataset handles MultiPolygons
             # incorrectly. Instead of handling them as separate 'islands', it

@@ -1,8 +1,11 @@
+/env/
+/folium/
+
 *pyc
 .ipynb_checkpoints/
 *swo
-env/
-folium/
-data/
-rendered_map.html
-summary_data.js
+
+/roadtrip/usa/data/
+
+*rendered_map.html
+*summary_data.js
