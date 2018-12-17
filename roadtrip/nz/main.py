@@ -24,9 +24,6 @@ ICON_CITY = 'home'
 COLOR_CITY = 'blue'
 ICON_FRIEND = 'user'
 COLOR_FRIEND = 'orange'
-ICON_ANIMAL = 'binoculars'
-COLOR_ANIMAL = 'gray'
-PREFIX_ANIMAL = PREFIX_FONT_AWESOME
 ICON_GOT_HIGH = 'chevron-up'
 COLOR_GOT_HIGH = 'lightgray'
 ICON_NSEW = 'compass'
@@ -136,7 +133,7 @@ summary_sleep = [] # list of (collapsed date range, place)
 
 for sleep_coord, dates in sleep_dates.iteritems():
     (coord_label, coord_type, icon) = sleep_markers[sleep_coord]
-    popup = '{}<br/>{}'.format(coord_label, collapse_date_ranges(dates, sep='<br/>'))
+    popup = u'{}<br/>{}'.format(coord_label, collapse_date_ranges(dates, sep=u'<br/>'))
     Marker(
         location=sleep_coord,
         popup=folium.Popup(popup),
@@ -191,42 +188,7 @@ for coord, friend_dict in coord_to_friend_to_dates.iteritems():
 
 summary_tables[fg_friend_name] = sorted(summary_friend)
 
-# 5 Animal sightings
-fg_animal_name = 'Animal sightings'
-fg_animal = FeatureGroup(name=fg_animal_name, show=False)
-fg_animal.add_to(m)
-
-park_to_animal = defaultdict(list)  # key is park name; value is list of tuples of (animal, date)
-
-for day in trip:
-    if DAY_ANIMAL in day:
-        date = day[DAY_DATE]
-        for animal, park in day[DAY_ANIMAL]:
-            park_to_animal[park].append((animal, date))
-
-summary_animal = []
-for park, animal_data in park_to_animal.iteritems():
-    
-    animal_to_dates = defaultdict(list)
-    for animal, date in animal_data:
-        animal_to_dates[animal].append(date)
-    
-    # popup text should be "Elk on 2018-09-03 to 2018-09-04 <br/> Ptarmigan on 2018-09-05 <br/> in Banff NP"
-    popup_lines = []
-    for animal, dates in animal_to_dates.iteritems():
-        date_range = collapse_date_ranges(dates)
-        summary_animal.append((date_range, animal, park)) # fill in summary while we're at it
-        
-        popup_lines.append('{} on {}'.format(animal, date_range))
-    popup_lines.append('in {}'.format(park))
-
-    popup = html_escape(popup_lines)
-    icon = folium.Icon(icon=ICON_ANIMAL, prefix=PREFIX_ANIMAL, color=COLOR_ANIMAL)
-    add_park(park, popup, fg_animal, icon)
-
-summary_tables[fg_animal_name] = sorted(summary_animal)
-
-# 6 Mountains climbed aka getting high
+# 5 Mountains climbed aka getting high
 fg_got_high_name = 'High elevations'
 fg_got_high = FeatureGroup(name=fg_got_high_name, show=False)
 fg_got_high.add_to(m)
@@ -247,15 +209,15 @@ for day in trip:
 
 summary_tables[fg_got_high_name] = summary_got_high
 
-# 7 Extreme points NSEW
+# 6 Extreme points NSEW
 fg_extreme_nsew_name = 'Extreme points north/south/east/west'
 fg_extreme_nsew = FeatureGroup(name=fg_extreme_nsew_name, show=False)
 fg_extreme_nsew.add_to(m)
 
 extreme_nsew_data = [
     ('NORTH', '2018-11-20', 'Kapowairua (Spirits Bay)', coords.spirits_bay),
-    ('SOUTH', '', '', (24.546522, -81.797472)), # TODO
-    ('EAST', '2018-11-27', 'East Cape', (-37.690286, 178.548075)), # TODO
+    ('SOUTH', '2018-12-17', 'Wellington Airport', (-41.330189, 174.811963)),
+    ('EAST', '2018-11-27', 'East Cape', coords.east_cape),
     ('WEST', '2018-11-20', 'Cape Reinga', coords.cape_reinga),
 ]
 
@@ -272,7 +234,7 @@ summary_extreme_nsew = map(
 )
 summary_tables[fg_extreme_nsew_name] = summary_extreme_nsew
 
-# 8 Facebook posts
+# 7 Facebook posts
 fg_facebook_name = 'Facebook posts'
 fg_facebook = FeatureGroup(name=fg_facebook_name, show=False)
 fg_facebook.add_to(m)
@@ -283,20 +245,37 @@ facebook_data = {
       'Auckland',
       'https://www.facebook.com/mhhalverson/posts/10215947570215856')],
 
-    tuple([((-34.343887, 172.537870), (-35.786629, 172.537870), (-35.786629, 174.483424), (-34.343887, 174.483424), (-34.343887, 172.537870))]):
+    tuple([((-34.343887, 172.537870), (-35.8134, 173.5675), (-35.786629, 174.483424), (-35.1364, 174.3090), (-34.3434, 173.1500), (-34.343887, 172.537870))]):
     [('2018-11-17 to 2018-11-21',
       'Northland',
       'https://www.facebook.com/mhhalverson/posts/10215979806901753')],
 
-    # TODO
-    # tuple([]): 
-    # [('2018-11-21 to 2018-11-',
-    #   '',
-    #   '')],
+    tuple([((-36.7171, 175.3097), (-38.3978, 174.9362), (-38.3117, 175.4965), (-37.6710, 176.4413), (-36.6201, 175.8261), (-36.7171, 175.3097))]): 
+    [('2018-11-21 to 2018-11-26',
+      'Coromandel, Tauranga, and Waikato',
+      'https://www.facebook.com/mhhalverson/posts/10216010605471698')],
+
+    tuple([((-37.9102, 177.1216), (-39.0106, 176.8734), (-39.0106, 173.6499), (-39.6818, 173.6499), (-39.7008, 177.0667), (-38.6404, 178.5359), (-37.5272, 178.7204), (-37.4182, 177.8030), (-37.9102, 177.1216))]):
+    [('2018-11-26 to 2018-12-05',
+      'East Cape, Taranaki, and Whanganui',
+      'https://www.facebook.com/mhhalverson/posts/10216058013536870')],
+
+    tuple([((-39.8601, 176.0948), (-40.8065, 174.9357), (-41.0472, 175.3422), (-39.8929, 176.4954), (-39.8601, 176.0948))]): 
+    [('2018-12-05 to 2018-12-12',
+      'Ruahines and Tararuas',
+      'https://www.facebook.com/mhhalverson/posts/10216128029367222')],
+
+    tuple([((-41.0918, 174.5618), (-41.3809, 174.5618), (-41.3809, 174.9902), (-41.0918, 174.9902), (-41.0918, 174.5618))]): 
+    [('2018-12-12 to 2018-12-17',
+      'Wellington',
+      'https://www.facebook.com/mhhalverson/posts/10216145403081554')],
 }
 
 for polygon, visits in facebook_data.iteritems():
-    lng_lat_polygon = [[(lng, lat) for (lat, lng) in polygon[0]]]
+    lng_lat_polygon = []
+    for gon in polygon:
+        lng_lat_gon = [(lng, lat) for (lat, lng) in gon]
+        lng_lat_polygon.append(lng_lat_gon)
     gj = folium.GeoJson(data={
         'type': 'Polygon',
         'coordinates': lng_lat_polygon,
@@ -316,7 +295,7 @@ summary_facebook = sorted(list(set(summary_facebook)))
 
 summary_tables[fg_facebook_name] = summary_facebook
 
-# 9 Memorable meals
+# 8 Memorable meals
 fg_meal_name = 'Memorable meals'
 fg_meal = FeatureGroup(name=fg_meal_name, show=False)
 fg_meal.add_to(m)
@@ -345,7 +324,7 @@ for coord, meal_data in coord_to_meals.iteritems():
 
 summary_tables[fg_meal_name] = summary_meal
 
-# 10 Pies
+# 9 Pies
 fg_pie_name = 'Pies baked'
 fg_pie = FeatureGroup(name=fg_pie_name, show=False)
 fg_pie.add_to(m)
@@ -378,7 +357,7 @@ for coord, pie_data in coord_to_pies.iteritems():
 
 summary_tables[fg_pie_name] = summary_pie
 
-# 14 Other notable events
+# 10 Other notable events
 fg_other_name = 'Other notable events'
 fg_other = FeatureGroup(name=fg_other_name, show=False)
 fg_other.add_to(m)
@@ -405,7 +384,7 @@ summary_tables[fg_other_name] = summary_other
 # Map finalization
 LayerControl().add_to(m)
 
-# Summary generation # TODO revisit at end
+# Summary generation
 executive_summary = [
  ('Total days on the road', str(summary_ints[SUMMARY_DAYS_TOTAL])),
  ('Days of camping', str(summary_ints[SUMMARY_DAYS_CAMPING])),
@@ -418,16 +397,9 @@ executive_summary = [
  ('Number of car accidents', '0'),
  ('Number of hospital visits', '0'),
  ('Number of thefts', '0'),
- ('Highest elevation', '{} on 2018-09-24 on Trail Ridge Road Summit in Rocky Mountain NP'.format(format_elevation(12183))),
- ('Lowest elevation', '{} on 2018-10-15 at the Salton Sea'.format(format_elevation(-236))),
- ('Highest temperature', ''),
- ('Lowest temperature', ''),
- ('Favourite city', ''),
- ('Least favourite city', ''),
- ('Favourite nature', ''),
- ('Least favourite nature', ''),
- ('Books read', 'Skyward by Brandon Sanderson'),
- ('', 'Kokoda by Peter FitzSimons'),
+ ('Highest elevation', '{} on 2018-12-11 on Bridge Peak in the Tararuas'.format(format_elevation(4662))),
+ ('Favourite nature', 'Kapowairua/Spirit Bay for Claire, the Main Range of the Tararuas for Matt'),
+ ('Least favourite nature', 'The windy Ruahines for both of us'),
 ]
 summary_tables['executive_summary'] = executive_summary
 
@@ -442,7 +414,7 @@ for k, v in summary_tables.iteritems():
                 r.td(h.a(item, href=item), style='padding:10px', escape=False)
             else:
                 r.td(item, style='padding:10px')
-    summary_tables_html[k] = '{}'.format(t)
+    summary_tables_html[k] = u'{}'.format(t)
 
 
 if __name__=='__main__':
